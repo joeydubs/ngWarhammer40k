@@ -1,25 +1,20 @@
 <div>
-  <select id="faction-selector">
+  <select id="faction-selector" [(ngModel)]="factionSelector" (change)="getRoles()">
     <option>-- Select Faction --</option>
+    <option *ngFor="let faction of factions"> {{ faction }} </option>
   </select>
-  <select id="role-selector" disabled>
-    <option>Any</option>
-    <option>HQ</option>
-    <option>Troops</option>
-    <option>Elites</option>
-    <option>Fast Attack</option>
-    <option>Heavy Support</option>
-    <option>Dedicated Transport</option>
-    <option>Flyer</option>
-    <option>Fortification</option>
-    <option>Lord of War</option>
+  <select id="role-selector" [(ngModel)]="roleSelector" (change)="getUnits()" [disabled]="roleSelectorDisabled">
+    <option>-- Select Role --</option>
+    <option *ngFor="let role of roles"> {{ role }} </option>
   </select>
-  <select id="unit-selector" disabled>
+  <select id="unit-selector" [(ngModel)]="unitSelector" (change)="getSubfactions()" [disabled]="unitSelectorDisabled">
     <option>-- Select Unit --</option>
+    <option *ngFor="let unit of units"> {{ unit }} </option>
   </select>
-  <select id="subfaction-selector" disabled>
+  <select id="subfaction-selector" [(ngModel)]="subfactionSelector" [disabled]="subfactionSelectorDisabled">
     <option>-- Select Subfaction --</option>
+    <option *ngFor="let subfaction of subfactions"> {{ subfaction }} </option>
   </select>
-  <button id="get-stats" disabled>Get Stats</button>
-  <button id="submit-unit" disabled>Add Unit</button>
+  <button id="get-stats" [disabled]="getStatsDisabled">Get Stats</button>
+  <button id="submit-unit" [disabled]="saveUnitDisabled">Add Unit</button>
 </div>

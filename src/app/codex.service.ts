@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
@@ -32,9 +32,7 @@ export class CodexService {
   }
 
   getFactionList(): Observable<string[]> {
-    //request.open("POST", "/getFactionList")
-    //request.send()
-    this.messageService.add("CodexService: fetching Factions")
+    this.log("fetching Factions");
     return this.http.get<string[]>(`${this.apiUrl}/fetchFactionList`)
       .pipe(
         tap(_ => this.log("fetched Factions")),
@@ -42,10 +40,29 @@ export class CodexService {
       );
   }
 
-  getUnitList() {
-    // request.open("POST", "/getUnitList")
-    // request.setRequestHeader("Content-Type", "application/json")
-    // request.send(JSON.stringify({ "faction": selectedFaction, "role": selectedRole }))
+  getRoleList(): string[] {
+    this.log("fetched Roles");
+    return [
+      "Any",
+      "HQ",
+      "Troops",
+      "Elites",
+      "Fast Attack",
+      "Heavy Support",
+      "Dedicated Transport",
+      "Flyer",
+      "Fortification",
+      "Lord of War"
+    ]
+  }
+
+  getUnitList(faction: string, role: string) {
+    this.log("fetching Units");
+    return this.http.post<string[]>(`${this.apiUrl}/fetchUnitList`, {"faction": faction, "role": role})
+      .pipe(
+        tap(_ => this.log("fetched Units"),
+        catchError(this.handleError<string[]>('getUnitList', [])))
+      )
   }
 
   getUnit() {
@@ -54,10 +71,13 @@ export class CodexService {
     // request.send(JSON.stringify({ "unit": unitName }))
   }
 
-  getSubfactions(faction) {
-    // request.open("POST", "/getSubfactions")
-    // request.setRequestHeader("Content-Type", "application/json")
-    // request.send(JSON.stringify({ "faction": faction }))
+  getSubfactionsList(faction: string) {
+    this.log("fetching Subfactions");
+    return this.http.post<string[]>(`${this.apiUrl}/fetchSubfactions`, { "faction": faction })
+      .pipe(
+        tap(_ => this.log("fetched Subfactions"),
+        catchError(this.handleError<string[]>('getSubfactionsList', [])))
+      )
   }
 
 
