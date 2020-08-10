@@ -1,0 +1,41 @@
+<table>
+  <tr>
+    <th>Name</th>
+    <th>M</th>
+    <th>WS</th>
+    <th>BS</th>
+    <th>S</th>
+    <th>T</th>
+    <th>W</th>
+    <th>A</th>
+    <th>Ld</th>
+    <th>Sv</th>
+  </tr>
+  <tr *ngFor="let stats of unitStats">
+    <td> {{ stats.statName }} </td>
+    <td> {{ stats.m }} </td>
+    <td> {{ stats.ws }} </td>
+    <td> {{ stats.bs }} </td>
+    <td> {{ stats.s }} </td>
+    <td> {{ stats.t }} </td>
+    <td> {{ stats.w }} </td>
+    <td> {{ stats.a }} </td>
+    <td> {{ stats.ld }} </td>
+    <td> {{ stats.sv }} </td>
+  </tr>
+</table>
+
+<table *ngIf="unitStats[0].hasWoundTrack && unitWoundTrack.length != 0">
+  <tr>
+    <th>Remaining W</th>
+    <th> {{ unitWoundTrack[0].char1name }} </th>
+    <th> {{ unitWoundTrack[0].char2name }} </th>
+    <th> {{ unitWoundTrack[0].char3name }} </th>
+  </tr>
+  <tr *ngFor="let track of unitWoundTrack">
+    <td> {{ track.remainingW }} </td>
+    <td> {{ track.char1value }} </td>
+    <td> {{ track.char2value }} </td>
+    <td> {{ track.char3value }} </td>
+  </tr>
+</table>

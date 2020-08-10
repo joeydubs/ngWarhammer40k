@@ -9,13 +9,17 @@ import { AppComponent } from './app.component';
 import { UnitListComponent } from './unit-list/unit-list.component';
 import { MyArmyComponent } from './my-army/my-army.component';
 import { MessagesComponent } from './messages/messages.component';
+import { UnitStatsComponent } from './unit-stats/unit-stats.component';
+import { UnitOptionsComponent } from './unit-options/unit-options.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UnitListComponent,
     MyArmyComponent,
-    MessagesComponent
+    MessagesComponent,
+    UnitStatsComponent,
+    UnitOptionsComponent
   ],
   imports: [
     BrowserModule,

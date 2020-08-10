@@ -5,8 +5,7 @@ const port = 5300
 const app = express()
 
 const ArmyManager = require('./javascript/armymanager')
-const { SSL_OP_EPHEMERAL_RSA } = require('constants')
-const { threadId } = require('worker_threads')
+
 army = new ArmyManager()
 
 app.use(express.json())
@@ -95,10 +94,12 @@ app.post('/fetchUnit', function (req, res) {
 	})
 })
 
-app.post('/fetchModelStats', function (req, res) {
-	var model = req.body.model
+app.post('/fetchUnitStats', function (req, res) {
+	var unit = req.body.unit
 
-	army.getModelStats(model, function (err, result) {
+	console.log(unit)
+
+	army.getModelStats(unit, function (err, result) {
 		if (err) {
 			console.log(err.message)
 		}
@@ -108,10 +109,10 @@ app.post('/fetchModelStats', function (req, res) {
 	})
 })
 
-app.post('/fetchModelWoundTrack', function (req, res) {
-	var model = req.body.model
+app.post('/fetchUnitWoundTrack', function (req, res) {
+	var unit = req.body.unit
 
-	army.getModelWoundTrack(model, function (err, result) {
+	army.getModelWoundTrack(unit, function (err, result) {
 		if (err) {
 			console.log(err.message)
 		}
