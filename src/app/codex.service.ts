@@ -11,7 +11,7 @@ import { UnitStats, UnitWoundTrack } from './unit';
 
 export class CodexService {
 
-  private apiUrl = "http://localhost:5300";
+  private apiUrl = "http://40ktest.duckdns.org";
 
   constructor(
     private http: HttpClient,
