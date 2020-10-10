@@ -1,20 +1,10 @@
-const sqlite = require('sqlite3')
+const pool = require('./dbController');
 
 class ArmyManager {
-    constructor() {
-        this.db = new sqlite.Database("./resources/sql/warhammerdb.db", sqlite.OPEN_READWRITE, function (err) {
-            if (err) {
-                console.log("There was an error opening the Database. ")
-                console.log(err.message)
-            } else {
-                console.log("Database successfully opened.")
-            }
-        })
-
-    }
+    constructor() {}
 
     getStratagems(respond) {
-        let db = this.db
+        let pool = this.pool
         let filterStratagems = this.filterStratagems
 
         let stratagemQuery = "SELECT * FROM stratagem_conditions"
@@ -161,10 +151,10 @@ class ArmyManager {
                 respond(err, filteredStratagems)
             }
 
-            db.each(unitInfoQuery, callback, completion)
+            pool.each(unitInfoQuery, callback, completion)
         }
 
-        db.each(stratagemQuery, callback, complete)
+        pool.each(stratagemQuery, callback, complete)
     }
 
     filterStratagems(stratagems, unitInfo) {
@@ -274,11 +264,11 @@ class ArmyManager {
             }
         }
 
-        this.db.get(query, callback)
+        this.pool.get(query, callback)
     }
 
     createUnit(unit, dynasty) {
-        let db = this.db
+        let pool = this.pool
         let unitName = unit.name
 
         let query = `INSERT INTO user_army (
@@ -305,7 +295,7 @@ class ArmyManager {
                     FROM subfactions
                     WHERE subfactions.name = "${dynasty}"`
 
-                db.run(subfactionQuery, [], function (err) {
+                pool.run(subfactionQuery, [], function (err) {
                     if (err) {
                         console.log(err.message)
                     }
@@ -321,7 +311,7 @@ class ArmyManager {
                         ${modelID},
                         ${modelQty})`
 
-                    db.run(modelQuery, [], function (err) {
+                    pool.run(modelQuery, [], function (err) {
                         if (err) {
                             console.log(err.message)
                         }
@@ -339,7 +329,7 @@ class ArmyManager {
                             }
                         }
 
-                        db.run(gearQuery, [], function (err) {
+                        pool.run(gearQuery, [], function (err) {
                             if (err) {
                                 console.log(err.message)
                             }
@@ -349,7 +339,7 @@ class ArmyManager {
             }
         }
 
-        db.run(query, [], callback)
+        pool.run(query, [], callback)
     }
 
     // Unused. I was trying to separate this code out of the callback in the createUnit function above.
@@ -363,7 +353,7 @@ class ArmyManager {
                 ${modelID},
                 ${model.quantity})`
 
-            this.db.run(modelQuery, [], function (err) {
+            this.pool.run(modelQuery, [], function (err) {
                 if (err) {
                     console.log(err.message)
                 }
@@ -380,7 +370,7 @@ class ArmyManager {
                 }
             }
 
-            this.db.run(gearQuery, [], function (err) {
+            this.pool.run(gearQuery, [], function (err) {
                 if (err) {
                     console.log(err.message)
                 }
@@ -400,7 +390,7 @@ class ArmyManager {
             }
         }
 
-        this.db.exec(query, callback)
+        this.pool.exec(query, callback)
     }
 
     getFactionList(respond) {
@@ -424,7 +414,7 @@ class ArmyManager {
             respond(err, message)
         }
 
-        this.db.each(query, callback, completion)
+        this.pool.each(query, callback, completion)
     }
 
     getUnitList(faction, role, respond) {
@@ -456,7 +446,7 @@ class ArmyManager {
             respond(err, message)
         }
 
-        this.db.each(query, callback, completion)
+        this.pool.each(query, callback, completion)
     }
 
     getSubfactions(faction, respond) {
@@ -482,7 +472,7 @@ class ArmyManager {
             respond(err, message)
         }
 
-        this.db.each(query, callback, completion)
+        this.pool.each(query, callback, completion)
     }
 
     getModelStats(unit, respond) {
@@ -515,7 +505,7 @@ class ArmyManager {
             respond(err, message)
         }
 
-        this.db.each(query, callback, completion)
+        this.pool.each(query, callback, completion)
     }
 
     getModelWoundTrack(model, respond) {
@@ -544,7 +534,7 @@ class ArmyManager {
             respond(err, message)
         }
 
-        this.db.each(query, callback, completion)
+        this.pool.each(query, callback, completion)
     }
 
     getUnitDetails(unit, respond) {
@@ -608,7 +598,7 @@ class ArmyManager {
             respond(err, message)
         }
 
-        this.db.each(query, callback, completion)
+        this.pool.each(query, callback, completion)
     }
 
     getArmy(respond) {
@@ -696,7 +686,7 @@ class ArmyManager {
             respond(err, message)
         }
 
-        this.db.each(query, callback, completion)
+        this.pool.each(query, callback, completion)
     }
 }
 

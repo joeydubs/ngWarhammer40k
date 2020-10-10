@@ -1,5 +1,3 @@
-DROP TABLE IF EXISTS models;
-
 CREATE TABLE models (
     id INTEGER PRIMARY KEY,
     name TEXT,

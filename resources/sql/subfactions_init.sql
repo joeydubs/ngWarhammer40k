@@ -1,5 +1,3 @@
-DROP TABLE IF EXISTS subfactions;
-
 CREATE TABLE subfactions (
     id INTEGER PRIMARY KEY,
     name TEXT,

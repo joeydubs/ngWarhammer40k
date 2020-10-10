@@ -1,5 +1,3 @@
-DROP TABLE IF EXISTS faction_keywords;
-
 CREATE TABLE faction_keywords (
     id INTEGER PRIMARY KEY,
     name TEXT

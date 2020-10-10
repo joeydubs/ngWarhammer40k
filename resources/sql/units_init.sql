@@ -1,16 +1,15 @@
-DROP TABLE IF EXISTS units;
-
 CREATE TABLE units (
     id INTEGER PRIMARY KEY,
     name TEXT,
     description TEXT,
     options TEXT,
-    role TEXT,
+    roleId TEXT,
     power INTEGER,
-    factionID INTEGER
+    factionID INTEGER,
+    armyMax INTEGER
 );
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Imotekh the Stormlord",
@@ -21,7 +20,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Nemesor Zahndrekh",
@@ -32,7 +31,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Vargard Obyron",
@@ -43,7 +42,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Illuminor Szeras",
@@ -54,7 +53,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Orikan the Diviner",
@@ -65,7 +64,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Anrakyr the Traveller",
@@ -76,7 +75,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Trazyn the Infinite",
@@ -87,7 +86,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Catacomb Command Barge",
@@ -98,7 +97,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Overlord",
@@ -109,7 +108,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Lord",
@@ -120,7 +119,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Cryptek",
@@ -131,7 +130,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Destroyer Lord",
@@ -142,7 +141,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Necron Warriors",
@@ -153,7 +152,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Immortals",
@@ -164,7 +163,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Lychguard",
@@ -175,7 +174,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Deathmarks",
@@ -186,7 +185,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Flayed Ones",
@@ -197,7 +196,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Triarch Praetorians",
@@ -208,7 +207,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Triarch Stalker",
@@ -219,7 +218,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "C'tan Shard of the Deceiver",
@@ -230,7 +229,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "C'tan Shard of the Nightbringer",
@@ -241,7 +240,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Canoptek Wraiths",
@@ -252,7 +251,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Canoptek Scarabs",
@@ -263,7 +262,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Tomb Blades",
@@ -274,7 +273,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Destroyers",
@@ -285,7 +284,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Heavy Destroyers",
@@ -296,7 +295,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Canoptek Spyders",
@@ -307,7 +306,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Monolith",
@@ -318,7 +317,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Annihilation Barge",
@@ -329,7 +328,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Doomsday Ark",
@@ -340,7 +339,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Transcendent C'tan",
@@ -351,7 +350,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Ghost Ark",
@@ -362,7 +361,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Doom Scythe",
@@ -373,7 +372,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Night Scythe",
@@ -384,7 +383,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Obelisk",
@@ -395,7 +394,7 @@ SELECT
     factions.id
 FROM factions WHERE factions.name = "Necrons";
 
-INSERT INTO units (id, name, description, options, role, power, factionID)
+INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
 SELECT
     NULL,
     "Tesseract Vault",

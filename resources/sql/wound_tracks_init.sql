@@ -1,17 +1,9 @@
-DROP TABLE IF EXISTS wound_tracks;
-
 CREATE TABLE wound_tracks
 (
     id INTEGER PRIMARY KEY,
-    modelID INTEGER,
+    modelId INTEGER,
     tier INTEGER,
-    remainingW TEXT,
-    char1name TEXT,
-    char1value TEXT,
-    char2name TEXT,
-    char2value TEXT,
-    char3name TEXT,
-    char3value TEXT
+    wounds TEXT
 );
 
 -- triarch stalker, 6

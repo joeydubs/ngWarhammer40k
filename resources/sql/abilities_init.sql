@@ -1,5 +1,3 @@
-DROP TABLE IF EXISTS abilities;
-
 CREATE TABLE abilities
 (
     id INTEGER PRIMARY KEY,

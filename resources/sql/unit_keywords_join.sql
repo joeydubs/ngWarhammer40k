@@ -1,5 +1,3 @@
-DROP TABLE IF EXISTS unit_keywords_join;
-
 CREATE TABLE unit_keywords_join (
     unitID INTEGER,
     keywordID INTEGER

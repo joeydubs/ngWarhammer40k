@@ -1,5 +1,3 @@
-DROP TABLE IF EXISTS unit_faction_keywords_join;
-
 CREATE TABLE unit_faction_keywords_join (
     unitID INTEGER,
     factionKeywordID INTEGER

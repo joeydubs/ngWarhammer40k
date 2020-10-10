@@ -1,12 +1,9 @@
-DROP TABLE IF EXISTS wargear;
-
 CREATE TABLE wargear (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
-    flavor TEXT,
     description TEXT,
     points INTEGER,
-    weapon BOOLEAN
+    typeId INTEGER
 );
 
 INSERT INTO wargear

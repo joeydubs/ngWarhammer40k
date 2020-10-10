@@ -1,5 +1,3 @@
-DROP TABLE IF EXISTS keywords;
-
 CREATE TABLE keywords (
     id INTEGER PRIMARY KEY,
     name TEXT

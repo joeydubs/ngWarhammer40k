@@ -1,5 +1,3 @@
-DROP TABLE IF EXISTS unit_abilities_join;
-
 CREATE TABLE unit_abilities_join (
     unitID INTEGER,
     abilityID INTEGER

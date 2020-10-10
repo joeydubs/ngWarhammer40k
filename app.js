@@ -1,12 +1,13 @@
-const express = require('express')
-const path = require('path')
+require('dotenv').config();
 
-const port = 5300
+const express = require('express')
+
+const port = process.env.port
 const app = express()
 
-const ArmyManager = require('./javascript/armymanager')
+const ArmyController = require('./controllers/armyController')
 
-army = new ArmyManager()
+army = new ArmyController()
 
 app.use(express.json())
 
@@ -30,18 +31,6 @@ app.use((req, res, next) => {
 	// Pass to next layer of middleware
 	next();
 });
-
-app.get('/', function (req, res) {
-	res.sendFile(path.join(__dirname + '/pages/html/home.html'))
-})
-
-app.get('/home.js', function (req, res) {
-	res.sendFile(path.join(__dirname + "/javascript/home.js"))
-})
-
-app.get('/home.css', function (req, res) {
-	res.sendFile(path.join(__dirname + "/pages/css/home.css"))
-})
 
 app.get('/fetchFactionList', function (req, res) {
 	army.getFactionList(function (err, result) {
