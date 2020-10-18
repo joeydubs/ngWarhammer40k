@@ -1,6 +1,7 @@
 CREATE TABLE factions (
-    id INTEGER PRIMARY KEY,
-    name TEXT
+    id INT AUTO_INCREMENT,
+    name VARCHAR(50),
+    PRIMARY KEY (id)
 );
 
 INSERT INTO factions VALUES (

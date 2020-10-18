@@ -1,8 +1,8 @@
 CREATE TABLE model_unit_join (
-    modelId INTEGER,
-    unitId INTEGER,
-    min INTEGER,
-    max INTEGER
+    modelId INT,
+    unitId INT,
+    min INT,
+    max INT
 );
 
 INSERT INTO model_unit_join (

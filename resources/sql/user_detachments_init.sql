@@ -1,7 +1,8 @@
 CREATE TABLE user_detachments
 (
-  id INTEGER,
-  detachmentId INTEGER,
-  points INTEGER,
-  containsWarlord BOOLEAN
+  id INT AUTO_INCREMENT,
+  detachmentId INT,
+  points INT,
+  containsWarlord BOOLEAN,
+  PRIMARY KEY (id)
 );

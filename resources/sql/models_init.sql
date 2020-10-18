@@ -1,8 +1,9 @@
 CREATE TABLE models (
-    id INTEGER PRIMARY KEY,
-    name TEXT,
+    id INT AUTO_INCREMENT,
+    name VARCHAR(50),
     hasWoundTrack BOOLEAN,
-    points INTEGER
+    points INT,
+    PRIMARY KEY (id)
 );
 
 INSERT INTO models VALUES (

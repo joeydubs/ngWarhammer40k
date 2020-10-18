@@ -1,8 +1,8 @@
 CREATE TABLE wargear_join
 (
-  wargearId INTEGER,
-  targetGearId INTEGER,
-  quantity INTEGER,
+  wargearId INT,
+  targetGearId INT,
+  quantity INT,
   isDefault BOOLEAN
 );
 

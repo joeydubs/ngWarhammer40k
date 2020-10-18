@@ -1,7 +1,8 @@
 CREATE TABLE wargear_types
 (
-  id INTEGER,
-  name TEXT
+  id INT AUTO_INCREMENT,
+  name VARCHAR(50),
+  PRIMARY KEY (id)
 );
 
 INSERT INTO wargear_types

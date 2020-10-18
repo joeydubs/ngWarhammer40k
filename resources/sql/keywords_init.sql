@@ -1,6 +1,7 @@
 CREATE TABLE keywords (
-    id INTEGER PRIMARY KEY,
-    name TEXT
+    id INT AUTO_INCREMENT,
+    name VARCHAR(50),
+    PRIMARY KEY (id)
 );
 
 INSERT INTO keywords VALUES (

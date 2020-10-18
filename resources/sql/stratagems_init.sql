@@ -1,22 +1,16 @@
 CREATE TABLE stratagems (
-    id INTEGER PRIMARY KEY,
-    faction TEXT,
-    name TEXT,
-    flavor TEXT,
-    description TEXT,
-    commandPts INTEGER,
-    allConditions BOOLEAN
+    id INT AUTO_INCREMENT,
+    factionId INT,
+    name VARCHAR(50),
+    flavor VARCHAR(500),
+    description VARCHAR(2000),
+    commandPts INT,
+    allConditions BOOLEAN,
+    PRIMARY KEY (id)
 );
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -28,15 +22,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Any";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -48,15 +35,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Any";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -68,15 +48,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Any";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -88,15 +61,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -108,15 +74,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -128,15 +87,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -148,15 +100,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -168,15 +113,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -188,15 +126,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -208,15 +139,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -228,15 +152,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -248,15 +165,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -268,15 +178,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -288,15 +191,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -308,15 +204,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -328,15 +217,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -348,15 +230,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -368,15 +243,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -388,15 +256,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -408,15 +269,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -428,15 +282,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -448,15 +295,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -468,15 +308,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -488,15 +321,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -508,15 +334,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -528,15 +347,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -548,15 +360,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -568,15 +373,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,
@@ -588,15 +386,8 @@ SELECT
 FROM factions
 WHERE factions.name = "Necrons";
 
-INSERT INTO stratagems (
-    id,
-    faction,
-    name,
-    flavor,
-    description,
-    commandPts,
-    allConditions
-)
+INSERT INTO stratagems
+    (id, factionId, name, flavor, description, commandPts, allConditions)
 SELECT
     null,
     factions.id,

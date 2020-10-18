@@ -1,36 +1,36 @@
 CREATE TABLE subfactions (
-    id INTEGER PRIMARY KEY,
-    name TEXT,
-    faction TEXT
+    id INT AUTO_INCREMENT,
+    name VARCHAR(50),
+    factionId INT,
+    PRIMARY KEY (id)
 );
 
-INSERT INTO subfactions VALUES (
-    NULL,
-    "Mephrit",
-    "Necrons"
-);
+INSERT INTO subfactions
+    (name, factionId)
+SELECT 'Mephrit', factions.id
+FROM factions
+WHERE factions.name = 'Necrons';
 
-INSERT INTO subfactions VALUES (
-    NULL,
-    "Nephrekh",
-    "Necrons"
-);
+INSERT INTO subfactions
+    (name, factionId)
+SELECT 'Nephrekh', factions.id
+FROM factions
+WHERE factions.name = 'Necrons';
 
-INSERT INTO subfactions VALUES (
-    NULL,
-    "Nihilakh",
-    "Necrons"
-);
+INSERT INTO subfactions
+    (name, factionId)
+SELECT 'Nihilakh', factions.id
+FROM factions
+WHERE factions.name = 'Necrons';
 
-INSERT INTO subfactions VALUES (
-    NULL,
-    "Novokh",
-    "Necrons"
-);
+INSERT INTO subfactions
+    (name, factionId)
+SELECT 'Novokh', factions.id
+FROM factions
+WHERE factions.name = 'Necrons';
 
-INSERT INTO subfactions VALUES (
-    NULL,
-    "Sautekh",
-    "Necrons"
-);
-
+INSERT INTO subfactions
+    (name, factionId)
+SELECT 'Sautekh', factions.id
+FROM factions
+WHERE factions.name = 'Necrons';

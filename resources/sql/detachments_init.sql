@@ -1,19 +1,20 @@
 CREATE TABLE detachments
 (
-  id INTEGER,
-  name TEXT,
-  commandCost INTEGER,
-  restrictions TEXT,
-  commandBenefits TEXT,
-  dedicatedTransports INTEGER
+  id INT AUTO_INCREMENT,
+  name VARCHAR(50),
+  commandCost INT,
+  restrictions VARCHAR(500),
+  commandBenefits VARCHAR(500),
+  dedicatedTransports INT,
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE detachment_slots
 (
-  detachmentId INTEGER,
-  roleId INTEGER,
-  min INTEGER,
-  max INTEGER
+  detachmentId INT,
+  roleId INT,
+  min INT,
+  max INT
 );
 
 INSERT INTO detachments
