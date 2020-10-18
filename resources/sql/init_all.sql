@@ -20,6 +20,7 @@ source detachments_init.sql;
 source unit_gear_options_init.sql;
 source user_detachments_init.sql;
 source wargear_types_init.sql;
+source roles_init.sql;
 
 
 source options_wargear_join.sql;

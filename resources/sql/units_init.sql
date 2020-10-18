@@ -1,4 +1,5 @@
-CREATE TABLE units (
+CREATE TABLE units
+(
     id INTEGER PRIMARY KEY,
     name TEXT,
     description TEXT,
@@ -9,398 +10,470 @@ CREATE TABLE units (
     armyMax INTEGER
 );
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Imotekh the Stormlord",
     "Imotekh the Stormlord is a single model armed with the Staff of the Destroyer and a gauntlet of fire. Only one of this model may be included in your army.",
     NULL,
-    "HQ",
+    roles.id,
     10,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "HQ";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Nemesor Zahndrekh",
     "Nemesor Zahndrekh is a single model armed with a staff of light. Only one of this model may be included in your army.",
     NULL,
-    "HQ",
+    roles.id,
     9,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "HQ";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Vargard Obyron",
     "Vargard Obyron is a single model armed with a warscythe. Only one of this model may be included in your army.",
     NULL,
-    "HQ",
+    roles.id,
     7,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "HQ";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Illuminor Szeras",
     "Illuminor Szeras is a single model armed with the Eldritch Lance. Only one of this model may be included in your army.",
     NULL,
-    "HQ",
+    roles.id,
     8,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "HQ";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Orikan the Diviner",
     "Orikan the Diviner is a single model armed with the Staff of Tomorrow. Only one of this model may be included in your army.",
     NULL,
-    "HQ",
+    roles.id,
     6,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "HQ";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Anrakyr the Traveller",
     "Anrakyr the Traveller is a single model armed with a tachyon arrow and warscythe. Only one of this model may be included in your army.",
     NULL,
-    "HQ",
+    roles.id,
     9,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "HQ";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Trazyn the Infinite",
     "Trazyn the Infinite is a single model armed with the Empathic Obliterator. Only one of this model may be included in your army.",
     NULL,
-    "HQ",
+    roles.id,
     5,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "HQ";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Catacomb Command Barge",
     "A Catacomb Command Barge is a single model equipped with a gauss cannon. It is ridden by an Overlord armed with a staff of light.",
     "The Overlord may replace their staff of light with a hyperphase sword, a voidblade or a warscythe. The Overlord may take a resurrection orb. The Catacomb Command Barge may replace its gauss cannon with a tesla cannon.",
-    "HQ",
+    roles.id,
     9,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "HQ";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Overlord",
     "An Overlord is a single model armed with a staff of light.",
     "This model may replace its staff of light with a voidscythe, a hyperphase sword, a voidblade or a warscythe. This model may take a resurrection orb.",
-    "HQ",
+    roles.id,
     6,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions
+WHERE factions.name = "Necrons"
+    AND roles.name = "HQ";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Lord",
     "A Lord is a single model armed with a staff of light.",
     "This model may replace its staff of light with a hyperphase sword, a voidblade or a warscythe. This model may take a resurrection orb.",
-    "HQ",
+    roles.id,
     5,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "HQ";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Cryptek",
     "A Cryptek is a single model armed with a staff of light.",
     "This model may take either a chronometron or a Canoptek cloak.",
-    "HQ",
+    roles.id,
     5,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "HQ";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Destroyer Lord",
     "A Destroyer Lord is a single model armed with a staff of light.",
     "This model may replace its staff of light with a hyperphase sword, a voidblade or a warscythe. This model may take either a phylactery or a resurrection orb.",
-    "HQ",
+    roles.id,
     7,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "HQ";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Necron Warriors",
     "This unit contains 10 Necron Warriors. It may include up to 10 additional Necron Warriors (Power Rating +6). Each model is armed with a gauss flayer.",
     NULL,
-    "Troops",
+    roles.id,
     6,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Troops";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Immortals",
     "This unit contains 5 Immortals. It can include up to 5 additional Immortals (Power Rating +4). Each model is armed with a gauss blaster.",
     "The entire unit may replace their gauss blasters with tesla carbines.",
     "Troops",
     4,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Troops";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Lychguard",
     "This unit contains 5 Lychguard. It can include up to 5 additional Lychguard (Power Rating +8). Each model is armed with a warscythe.",
     "The entire unit may replace their warscythes with hyperphase swords and dispersion shields.",
-    "Elites",
+    roles.id,
     8,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Elites";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Deathmarks",
     "This unit contains 5 Deathmarks. It can include up to 5 additional Deathmarks (Power Rating +4). Each model is armed with a synaptic disintegrator.",
     NULL,
-    "Elites",
+    roles.id,
     5,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Elites";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Flayed Ones",
     "This unit contains 5 Flayed Ones. It can include up to 5 additional Flayed Ones (Power Rating +4), up to 10 additional Flayed Ones (Power Rating +8) or up to 15 additional Flayed Ones (Power Rating +12). Each model attacks with their flayer claws.",
     NULL,
-    "Elites",
+    roles.id,
     4,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Elites";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Triarch Praetorians",
     "This unit contains 5 Triarch Praetorians. It can include up to 5 additional Triarch Praetorians (Power Rating +8). Each model is armed with a rod of covenant.",
     "The entire unit may replace their rods of covenant with voidblades and particle casters.",
-    "Elites",
+    roles.id,
     8,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Elites";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Triarch Stalker",
     "A Triarch Stalker is a single model equipped with a heat ray and massive forelimbs.",
     "This model may replace its heat ray with a particle shredder or a twin heavy gauss cannon.",
-    "Elites",
+    roles.id,
     8,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Elites";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "C'tan Shard of the Deceiver",
     "The C’tan Shard of the Deceiver is a single model that attacks with its star-god fists. Only one of this model may be included in your army.",
     NULL,
-    "Elites",
+    roles.id,
     12,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Elites";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "C'tan Shard of the Nightbringer",
     "The C’tan Shard of the Nightbringer is a single model that attacks with a gaze of death and the Scythe of the Nightbringer. Only one of this model may be included in your army.",
     NULL,
-    "Elites",
+    roles.id,
     12,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Elites";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Canoptek Wraiths",
     "This unit contains 3 Canoptek Wraiths. It may include up to 3 additional Canoptek Wraiths (Power Rating +9). Each model is equipped with vicious claws.",
     "Any model may take a particle caster, transdimensional beamer or whip coils.",
-    "Fast Attack",
+    roles.id,
     9,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Fast Attack";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Canoptek Scarabs",
     "This unit contains 3 Canoptek Scarab Swarms. It may include up to 3 additional Canoptek Scarab Swarms (Power Rating +2) or up to 6 additional Canoptek Scarab Swarms (Power Rating +4). Each swarm is equipped with feeder mandibles.",
     NULL,
-    "Fast Attack",
+    roles.id,
     2,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Fast Attack";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Tomb Blades",
     "This unit contains 3 Tomb Blades. It can include up to 3 additional Tomb Blades (Power Rating +5) or up to 6 additional Tomb Blades (Power Rating +9). Each model is equipped with two gauss blasters.",
     "Any model may replace its two gauss blasters with two tesla carbines or a particle beamer. Any model may take shieldvanes. Any model may take a nebuloscope or a shadowloom.",
-    "Fast Attack",
+    roles.id,
     5,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Fast Attack";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Destroyers",
     "This unit contains 1 Destroyer. It can include up to 5 additional Destroyers (Power Rating +3 per model). If the unit contains at least three models, a Heavy Destroyer can take the place of a Destroyer. Each Destroyer is armed with a gauss cannon. The Heavy Destroyer is armed with a heavy gauss cannon.",
     NULL,
-    "Fast Attack",
+    roles.id,
     3,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Fast Attack";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Heavy Destroyers",
     "This unit contains 1 Heavy Destroyer. It may include 1 additional Heavy Destroyer (Power Rating +3) or 2 additional Heavy Destroyers (Power Rating +6). Each model is armed with a heavy gauss cannon.",
     NULL,
-    "Heavy Support",
+    roles.id,
     3,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Heavy Support";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Canoptek Spyders",
     "This unit contains 1 Canoptek Spyder. It may include 1 additional Canoptek Spyder (Power Rating +4) or 2 additional Canoptek Spyders (Power Rating +8). Each model is equipped with automaton claws.",
     "Any model may take a fabricator claw array. Any model may take a gloom prism. Any model may take two particle beamers.",
-    "Heavy Support",
+    roles.id,
     4,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Heavy Support";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Monolith",
     "A Monolith is a single model equipped with four gauss flux arcs and a particle whip.",
     NULL,
-    "Heavy Support",
+    roles.id,
     19,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Heavy Support";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Annihilation Barge",
     "An Annihilation Barge is a single model equipped with a gauss cannon and a twin tesla destructor.",
     "This model may replace its gauss cannon with a tesla cannon.",
-    "Heavy Support",
+    roles.id,
     8,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Heavy Support";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Doomsday Ark",
     "A Doomsday Ark is a single model equipped with a doomsday cannon and two gauss flayer arrays.",
     NULL,
-    "Heavy Support",
+    roles.id,
     10,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Heavy Support";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Transcendent C'tan",
     "A Transcendent C’tan is a single model that attacks with its crackling tendrils.",
     NULL,
-    "Heavy Support",
+    roles.id,
     12,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Heavy Support";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Ghost Ark",
     "A Ghost Ark is a single model equipped with two gauss flayer arrays.",
     NULL,
-    "Transport",
+    roles.id,
     8,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Transport";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Doom Scythe",
     "A Doom Scythe is a single model equipped with a death ray and two tesla destructors.",
     NULL,
-    "Flyer",
+    roles.id,
     11,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Flyer";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Night Scythe",
     "A Night Scythe is a single model equipped with two tesla destructors.",
     NULL,
-    "Flyer",
+    roles.id,
     8,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Flyer";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Obelisk",
     "An Obelisk is a single model equipped with four tesla spheres.",
     NULL,
-    "Lord of War",
+    roles.id,
     22,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Lord of War";
 
-INSERT INTO units (id, name, description, options, roleId, power, factionId, armyMax)
+INSERT INTO units
+    (name, description, options, roleId, power, factionId, armyMax)
 SELECT
-    NULL,
     "Tesseract Vault",
     "A Tesseract Vault is a single model equipped with four tesla spheres.",
     NULL,
-    "Lord of War",
+    roles.id,
     25,
     factions.id
-FROM factions WHERE factions.name = "Necrons";
+FROM factions, roles
+WHERE factions.name = "Necrons"
+    AND roles.name = "Lord of War";
