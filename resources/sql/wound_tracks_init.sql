@@ -3,7 +3,13 @@ CREATE TABLE wound_tracks
     id INTEGER PRIMARY KEY,
     modelId INTEGER,
     tier INTEGER,
-    wounds TEXT
+    wounds TEXT,
+    char1name TEXT,
+    char1value TEXT,
+    char2name TEXT,
+    char2value TEXT,
+    char3name TEXT, 
+    char3value TEXT
 );
 
 -- triarch stalker, 6
