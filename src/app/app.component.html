@@ -1,8 +1,17 @@
-<h1>{{ title }}</h1>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <a class="navbar-brand" href="#">{{ title }}</a>
 
-<nav>
-  <a routerLink="/unit-list" routerLinkActive="active">Unit List</a>
-  <a routerLink="/my-army" routerLinkActive="active">My Army</a>
+  <button type=button class="navbar-toggler" (click)="isMenuCollapsed = !isMenuCollapsed">
+    <span class="fas fa-bars"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" [ngbCollapse]="isMenuCollapsed">
+    <ul class="navbar-nav">
+      <li><a class="nav-link" routerLink="/forge" routerLinkActive="active">Forge</a></li>
+      <li><a class="nav-link" routerLink="/unit-list" routerLinkActive="active">Unit List</a></li>
+      <li><a class="nav-link" routerLink="/my-army" routerLinkActive="active">My Army</a></li>
+    </ul>
+  </div>
 </nav>
 
 <router-outlet></router-outlet>

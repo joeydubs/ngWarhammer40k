@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  title = 'Warhammer40k Army Builder';
+  title = '40k Army Builder';
+  isMenuCollapsed = true;
 }

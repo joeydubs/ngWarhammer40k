@@ -11,6 +11,8 @@ import { MyArmyComponent } from './my-army/my-army.component';
 import { MessagesComponent } from './messages/messages.component';
 import { UnitStatsComponent } from './unit-stats/unit-stats.component';
 import { UnitOptionsComponent } from './unit-options/unit-options.component';
+import { ForgeComponent } from './forge/forge.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -19,13 +21,15 @@ import { UnitOptionsComponent } from './unit-options/unit-options.component';
     MyArmyComponent,
     MessagesComponent,
     UnitStatsComponent,
-    UnitOptionsComponent
+    UnitOptionsComponent,
+    ForgeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
