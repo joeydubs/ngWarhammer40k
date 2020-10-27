@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import { UnitStats, UnitWoundTrack } from './unit';
+import { Faction, Detachment } from './codexInterface';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { UnitStats, UnitWoundTrack } from './unit';
 
 export class CodexService {
 
-  private apiUrl = "http://40ktest.duckdns.org";
+  private apiUrl = "http://localhost:5300";
 
   constructor(
     private http: HttpClient,
@@ -32,12 +33,20 @@ export class CodexService {
     };
   }
 
-  getFactionList(): Observable<string[]> {
+  getDetachmentList(): Observable<Detachment[]> {
+    this.log("fetching Detachments");
+    return this.http.get<Detachment[]>(`${this.apiUrl}/getDetachmentList`)
+      .pipe(
+        tap(_ => this.log("fetched Detachments")),
+        catchError(this.handleError<Detachment[]>('getDetachmentList', []))
+      );
+  }
+  getFactionList(): Observable<Faction[]> {
     this.log("fetching Factions");
-    return this.http.get<string[]>(`${this.apiUrl}/fetchFactionList`)
+    return this.http.get<Faction[]>(`${this.apiUrl}/getFactionList`)
       .pipe(
         tap(_ => this.log("fetched Factions")),
-        catchError(this.handleError<string[]>('getFactionList', [])),
+        catchError(this.handleError<Faction[]>('getFactionList', [])),
       );
   }
 

@@ -3,35 +3,41 @@
 
   <div class="container-fluid">
     <div class="row">
-      <div class="form-group col-md-2">
+      <div class="form-group col-md">
         <label for="faction">Faction</label>
-        <select class="form-control" id="faction">
-          <option value="" disabled>-- Select --</option>
+        <select class="form-control" id="faction" [(ngModel)]=selectedFaction (ngModelChange)="factionSelected()">
+          <option value="undefined" disabled>-- Select --</option>
+          <option *ngFor="let faction of factions" [ngValue]="faction">{{ faction.name }}</option>
         </select>
       </div>
-      <div class="form-group col-md-2">
+      <div class="form-group col-md">
         <label for="detachment">Detachment</label>
-        <select class="form-control" id="detachment">
-          <option value="" disabled>-- Select --</option>
+        <select class="form-control" id="detachment" [(ngModel)]="selectedDetachment" (ngModelChange)="detachmentSelected()">
+          <option value="undefined" disabled>-- Select --</option>
+          <option *ngFor="let detachment of detachments" [ngValue]="detachment">{{ detachment.name }}</option>
         </select>
       </div>
     </div>
 
     <div class="row mb-4">
-      <div class="col-md-4">
+      <div class="col-lg-4">
         <div class="card bg-light shadow">
           <div class="card-body">
             <h3>Detachment Details</h3>
-            <ul>
-              <li>Command Cost</li>
-              <li>Restrictions</li>
-              <li>Command Benefit</li>
-              <li>Dedicated Transports</li>
-            </ul>
+            <dl *ngIf="selectedDetachment">
+              <dt>Command Cost:</dt>
+              <dd class="small">{{selectedDetachment.commandCost}}</dd>
+              <dt>Restrictions:</dt>
+              <dd class="small">{{selectedDetachment.restrictions}}</dd>
+              <dt>Command Benefit:</dt>
+              <dd class="small">{{selectedDetachment.commandBenefits}}</dd>
+              <dt>Dedicated Transports:</dt>
+              <dd class="small">{{selectedDetachment.dedicatedTransports}}</dd>
+            </dl>
           </div>
         </div>
       </div>
-      <div class="col-md-8">
+      <div class="col-lg-8">
         <div class="card bg-light shadow">
           <div class="card-body">
             <h3>Detachment Slots</h3>
@@ -70,7 +76,7 @@
     </div>
 
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-lg-4">
         <div class="card bg-light shadow">
           <div class="card-body">
             <h3>Add Unit</h3>
@@ -97,7 +103,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-8">
+      <div class="col-lg-8">
         <div class="card bg-light shadow">
           <div class="card-body">
             <h3>Unit Card for Selected Unit</h3>
@@ -109,7 +115,13 @@
 
     <hr />
 
-    <h1>Detachment Selections</h1>
+    <div class="row">
+      <h1 class="col-md-10">Detachment Selections</h1>
+      <div class="col-md-2">
+        <a class="btn btn-success">Save Detachment</a>
+      </div>
+    </div>
+
     <table class="table table-striped shadow">
       <thead>
         <tr>

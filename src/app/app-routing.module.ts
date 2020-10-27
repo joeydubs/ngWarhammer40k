@@ -6,7 +6,7 @@ import { ForgeComponent } from './forge/forge.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/my-army', pathMatch: 'full' },
+  { path: '', redirectTo: '/forge', pathMatch: 'full' },
   { path: 'forge', component: ForgeComponent },
   { path: 'unit-list', component: UnitListComponent },
   { path: 'my-army', component: MyArmyComponent },

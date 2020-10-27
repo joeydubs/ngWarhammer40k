@@ -1,7 +1,7 @@
 const pool = require('./dbController');
 
 class ArmyManager {
-    constructor() {}
+    constructor() { }
 
     getStratagems(respond) {
         let pool = this.pool
@@ -280,7 +280,7 @@ class ArmyManager {
             SELECT NULL, units.id, NULL, ${unit.points}
             FROM units
             WHERE units.name = "${unitName}"`
-            //AND subfactions.name = "${dynasty}"`
+        //AND subfactions.name = "${dynasty}"`
 
 
         var callback = function (err) {
@@ -393,28 +393,18 @@ class ArmyManager {
         this.pool.exec(query, callback)
     }
 
-    getFactionList(respond) {
-        let query = "SELECT name FROM factions WHERE name <> 'Any'"
+    async getFactionList() {
+        let query = "SELECT * FROM factions WHERE name <> 'Any'";
+        let factions = await pool.query(query);
 
-        var message = []
+        return factions;
+    }
 
-        var callback = function (err, row) {
-            if (err) {
-                console.log(err.message)
-            }
-            else {
-                message.push(row.name)
-            }
-        }
+    async getDetachmentList() {
+        let query = "SELECT * FROM detachments";
+        let detachments = await pool.query(query);
 
-        var completion = function (err, rows) {
-            if (err) {
-                console.log(err.message)
-            }
-            respond(err, message)
-        }
-
-        this.pool.each(query, callback, completion)
+        return detachments;
     }
 
     getUnitList(faction, role, respond) {

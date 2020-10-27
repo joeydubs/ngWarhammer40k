@@ -14,7 +14,7 @@ app.use(express.json())
 // CORS
 app.use((req, res, next) => {
 	// Website you wish to allow to connect
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+	res.setHeader('Access-Control-Allow-Origin', '*');
 	// Request methods you wish to allow
 	res.setHeader(
 		'Access-Control-Allow-Methods',
@@ -32,16 +32,34 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.get('/fetchFactionList', function (req, res) {
-	army.getFactionList(function (err, result) {
-		if (err) {
-			console.log(err.message)
-		}
+app.get('/getFactionList', async function (req, res) {
+	res.setHeader("Content-Type", "application/json")
+	try {
+		let factions = await army.getFactionList();
 
-		res.status(200)
-		res.type('json')
-		res.send(JSON.stringify(result))
-	})
+		res.status(200);
+		res.send(factions);
+	}
+	catch (error) {
+		console.log(error);
+		res.status(500);
+		res.send(error.message);
+	}
+})
+
+app.get('/getDetachmentList', async function (req, res) {
+	res.setHeader("Content-Type", "application/json");
+	try {
+		let detachments = await army.getDetachmentList();
+
+		res.status(200);
+		res.send(detachments);
+	}
+	catch (error) {
+		console.log(error);
+		res.status(500);
+		res.send(error.message);
+	}
 })
 
 app.post('/fetchUnitList', function (req, res) {
@@ -123,13 +141,13 @@ app.post("/fetchArmy", function (req, res) {
 })
 
 app.post("/fetchStratagems", function (req, res) {
-	army.getStratagems(function(err, result) {
+	army.getStratagems(function (err, result) {
 		if (err) {
 			console.log(err.message)
 		}
 		res.status(200)
 		res.type("json")
-		res.send(JSON.stringify(result))	
+		res.send(JSON.stringify(result))
 	})
 })
 
@@ -150,7 +168,7 @@ app.post('/createUnit', function (req, res) {
 	var unit = req.body.unit
 	var dynasty = req.body.subfaction
 	army.createUnit(unit, dynasty)
-	
+
 	res.status(200)
 	res.send()
 })
