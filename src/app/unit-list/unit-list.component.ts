@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CodexService } from '../codex.service';
+import { Faction } from '../codexInterface';
 import { UnitStats, UnitWoundTrack } from '../unit';
 
 @Component({
@@ -24,7 +25,7 @@ export class UnitListComponent implements OnInit {
 
   statsButtonText = "Show Stats"
 
-  factions: string[];
+  factions: Faction[];
   roles: string[];
   units: string[];
   subfactions: string[];

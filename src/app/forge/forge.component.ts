@@ -42,7 +42,7 @@ export class ForgeComponent implements OnInit {
     this.faction = this.selectedFaction;
   }
 
-  detachmentSelected(detachment: Detachment) {
+  detachmentSelected() {
     // TODO: Add confirmation if Detachment is already partially built.
     this.detachment = this.selectedDetachment;
     this.slots = [];

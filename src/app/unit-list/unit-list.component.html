@@ -1,7 +1,7 @@
 <div>
   <select id="faction-selector" [(ngModel)]="factionSelector" (change)="getRoles()">
     <option value ="0">-- Select Faction --</option>
-    <option *ngFor="let faction of factions"> {{ faction }} </option>
+    <option *ngFor="let faction of factions" [ngValue]='faction.id'> {{ faction.name }} </option>
   </select>
   <select id="role-selector" [(ngModel)]="roleSelector" (change)="getUnits()" [disabled]="roleSelectorDisabled">
     <option value="0">-- Select Role --</option>

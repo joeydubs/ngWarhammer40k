@@ -83,7 +83,7 @@ app.get('/getDetachmentSlots', async function (req, res) {
 app.post('/fetchUnitList', function (req, res) {
 	let faction = req.body.faction
 	let role = req.body.role
-	army.getUnitList(faction, role, function (err, result) {
+	codex.getUnitList(faction, role, function (err, result) {
 		if (err) {
 			console.log(err.message)
 		}
@@ -96,7 +96,7 @@ app.post('/fetchUnitList', function (req, res) {
 app.post('/fetchSubfactions', function (req, res) {
 	let faction = req.body.faction
 
-	army.getSubfactions(faction, function (err, result) {
+	codex.getSubfactions(faction, function (err, result) {
 		if (err) {
 			console.log(err.message)
 		}
@@ -109,7 +109,7 @@ app.post('/fetchSubfactions', function (req, res) {
 app.post('/fetchUnit', function (req, res) {
 	var unit = req.body.unit
 
-	army.getUnitDetails(unit, function (err, result) {
+	codex.getUnitDetails(unit, function (err, result) {
 		if (err) {
 			console.log(err.message)
 		}
@@ -124,7 +124,7 @@ app.post('/fetchUnitStats', function (req, res) {
 
 	console.log(unit)
 
-	army.getModelStats(unit, function (err, result) {
+	codex.getModelStats(unit, function (err, result) {
 		if (err) {
 			console.log(err.message)
 		}
@@ -137,7 +137,7 @@ app.post('/fetchUnitStats', function (req, res) {
 app.post('/fetchUnitWoundTrack', function (req, res) {
 	var unit = req.body.unit
 
-	army.getModelWoundTrack(unit, function (err, result) {
+	codex.getModelWoundTrack(unit, function (err, result) {
 		if (err) {
 			console.log(err.message)
 		}
@@ -148,7 +148,7 @@ app.post('/fetchUnitWoundTrack', function (req, res) {
 })
 
 app.post("/fetchArmy", function (req, res) {
-	army.getArmy(function (err, result) {
+	codex.getArmy(function (err, result) {
 		if (err) {
 			console.log(err.message)
 		}
@@ -159,7 +159,7 @@ app.post("/fetchArmy", function (req, res) {
 })
 
 app.post("/fetchStratagems", function (req, res) {
-	army.getStratagems(function (err, result) {
+	codex.getStratagems(function (err, result) {
 		if (err) {
 			console.log(err.message)
 		}
@@ -172,7 +172,7 @@ app.post("/fetchStratagems", function (req, res) {
 app.post("/fetchStratagemDetails", function (req, res) {
 	let stratagemID = req.body.stratagemID
 
-	army.getStratagemDetails(stratagemID, function (err, result) {
+	codex.getStratagemDetails(stratagemID, function (err, result) {
 		if (err) {
 			console.log(err.message)
 		}
@@ -185,7 +185,7 @@ app.post("/fetchStratagemDetails", function (req, res) {
 app.post('/createUnit', function (req, res) {
 	var unit = req.body.unit
 	var dynasty = req.body.subfaction
-	army.createUnit(unit, dynasty)
+	codex.createUnit(unit, dynasty)
 
 	res.status(200)
 	res.send()
@@ -193,7 +193,7 @@ app.post('/createUnit', function (req, res) {
 
 app.post("/removeUnit", function (req, res) {
 	var id = req.body.id
-	army.removeUnit(id)
+	codex.removeUnit(id)
 
 	res.status(200)
 	res.send()

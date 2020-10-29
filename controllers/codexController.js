@@ -438,7 +438,7 @@ class CodexController {
         var query = `SELECT units.name
             FROM units
             INNER JOIN factions ON units.factionID = factions.id
-            WHERE factions.name = "${faction}"`
+            WHERE factions.id = "${faction}"`
 
         if (role != "Any") {
             query += ` AND units.role = "${role}"`
