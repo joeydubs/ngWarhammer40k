@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CodexService } from '../codex.service';
-import { Faction, Detachment } from '../codexInterface';
+import { Faction, Detachment, DetachmentSlot } from '../codexInterface';
 
 @Component({
   selector: 'app-forge',
@@ -14,6 +14,7 @@ export class ForgeComponent implements OnInit {
 
   faction: Faction;
   detachment: Detachment;
+  slots: string[] = [];
 
   selectedFaction: Faction;
   selectedDetachment: Detachment;
@@ -34,17 +35,24 @@ export class ForgeComponent implements OnInit {
     );
   }
 
+  get slotCount() { return Object.keys(this.detachment.slots).length; }
+
   factionSelected() {
     // TODO: Add confirmation if Detachment is already partially built.
-    console.log("Before: " + this.faction);
     this.faction = this.selectedFaction;
-    console.log("After: " + this.faction);
   }
 
   detachmentSelected(detachment: Detachment) {
     // TODO: Add confirmation if Detachment is already partially built.
-    console.log("Before: " + this.detachment);
     this.detachment = this.selectedDetachment;
-    console.log("After: " + this.detachment);
+    this.slots = [];
+
+    this.codexService.getDetachmentSlots(this.detachment.id).subscribe(
+      (response) => {
+        console.log(response);
+        this.detachment.slots = response;
+        this.slots = Object.keys(this.detachment.slots);
+      }
+    )
   }
 }

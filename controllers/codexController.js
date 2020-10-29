@@ -1,6 +1,6 @@
 const pool = require('./dbController');
 
-class ArmyManager {
+class CodexController {
     constructor() { }
 
     getStratagems(respond) {
@@ -404,7 +404,34 @@ class ArmyManager {
         let query = "SELECT * FROM detachments";
         let detachments = await pool.query(query);
 
+        for (let detachment of detachments) {
+            detachment.slots = {}
+        }
+
         return detachments;
+    }
+
+    async getDetachmentSlots(detachmentId) {
+        let query = 
+            `
+            SELECT detachmentId, roleId, min, max, roles.name FROM detachment_slots
+            INNER JOIN roles ON detachment_slots.roleId = roles.id
+            WHERE detachmentId=?
+            `;
+        let results = await pool.query(query, [detachmentId]);
+
+        let detachmentSlots = {}
+
+        for (let result of results) {
+            detachmentSlots[result.name] = {
+                detachmentId: result.detachmentId,
+                roleId: result.roleId,
+                min: result.min,
+                max: result.max
+            }
+        }
+
+        return detachmentSlots;
     }
 
     getUnitList(faction, role, respond) {
@@ -680,4 +707,4 @@ class ArmyManager {
     }
 }
 
-module.exports = ArmyManager
+module.exports = CodexController

@@ -27,10 +27,10 @@
             <dl *ngIf="selectedDetachment">
               <dt>Command Cost:</dt>
               <dd class="small">{{selectedDetachment.commandCost}}</dd>
-              <dt>Restrictions:</dt>
-              <dd class="small">{{selectedDetachment.restrictions}}</dd>
               <dt>Command Benefit:</dt>
               <dd class="small">{{selectedDetachment.commandBenefits}}</dd>
+              <dt>Restrictions:</dt>
+              <dd class="small">{{selectedDetachment.restrictions}}</dd>
               <dt>Dedicated Transports:</dt>
               <dd class="small">{{selectedDetachment.dedicatedTransports}}</dd>
             </dl>
@@ -41,33 +41,18 @@
         <div class="card bg-light shadow">
           <div class="card-body">
             <h3>Detachment Slots</h3>
-            <table class="table table-striped">
+            <table class="table table-striped" *ngIf="detachment && slots.length > 0">
               <tr>
                 <th></th>
-                <th>HQ</th>
-                <th>Troops</th>
-                <th>Elites</th>
-                <th>Fast Attack</th>
-                <th>Heavy Support</th>
-                <th>Fliers</th>
+                <th *ngFor="let slot of slots">{{ slot }}</th>
               </tr>
-              <tr>
+            <tr>
                 <th>Needed</th>
-                <td>1-2</td>
-                <td>1-3</td>
-                <td>0-2</td>
-                <td>0-2</td>
-                <td>0-2</td>
-                <td>0-2</td>
+                <td *ngFor="let slot of slots">{{detachment.slots[slot].min}}-{{detachment.slots[slot].max}}</td>
               </tr>
               <tr>
                 <th>Selected</th>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
+                <td *ngFor="let slot of slots">0</td>
               </tr>
             </table>
           </div>

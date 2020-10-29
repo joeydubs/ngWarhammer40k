@@ -5,9 +5,9 @@ const express = require('express')
 const port = process.env.port
 const app = express()
 
-const ArmyController = require('./controllers/armyController')
+const CodexController = require('./controllers/codexController')
 
-army = new ArmyController()
+codex = new CodexController()
 
 app.use(express.json())
 
@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 app.get('/getFactionList', async function (req, res) {
 	res.setHeader("Content-Type", "application/json")
 	try {
-		let factions = await army.getFactionList();
+		let factions = await codex.getFactionList();
 
 		res.status(200);
 		res.send(factions);
@@ -50,10 +50,28 @@ app.get('/getFactionList', async function (req, res) {
 app.get('/getDetachmentList', async function (req, res) {
 	res.setHeader("Content-Type", "application/json");
 	try {
-		let detachments = await army.getDetachmentList();
+		let detachments = await codex.getDetachmentList();
 
 		res.status(200);
 		res.send(detachments);
+	}
+	catch (error) {
+		console.log(error);
+		res.status(500);
+		res.send(error.message);
+	}
+})
+
+app.get('/getDetachmentSlots', async function (req, res) {
+	res.setHeader("Content-Type", "application/json");
+
+	let detachmentId = req.query.detachmentId;
+
+	try {
+		let detachmentSlots = await codex.getDetachmentSlots(detachmentId);
+
+		res.status(200);
+		res.send(detachmentSlots);
 	}
 	catch (error) {
 		console.log(error);

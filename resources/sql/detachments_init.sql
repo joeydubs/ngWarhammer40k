@@ -68,7 +68,7 @@ INSERT INTO detachment_slots
 SELECT detachments.id, roles.id, 0, 2
 FROM detachments, roles
 WHERE detachments.name = 'Patrol Detachment'
-  AND roles.name = 'Flyers';
+  AND roles.name = 'Flyer';
 
 INSERT INTO detachments
   (name, commandCost, restrictions, commandBenefits, dedicatedTransports)
@@ -121,7 +121,7 @@ INSERT INTO detachment_slots
 SELECT detachments.id, roles.id, 0, 2
 FROM detachments, roles
 WHERE detachments.name = 'Battalion Detachment'
-  AND roles.name = 'Flyers';
+  AND roles.name = 'Flyer';
 
 INSERT INTO detachments
   (name, commandCost, restrictions, commandBenefits, dedicatedTransports)
@@ -174,7 +174,7 @@ INSERT INTO detachment_slots
 SELECT detachments.id, roles.id, 0, 2
 FROM detachments, roles
 WHERE detachments.name = 'Brigade Detachment'
-  AND roles.name = 'Flyers';
+  AND roles.name = 'Flyer';
 
 INSERT INTO detachments
   (name, commandCost, restrictions, commandBenefits, dedicatedTransports)
@@ -227,7 +227,7 @@ INSERT INTO detachment_slots
 SELECT detachments.id, roles.id, 0, 2
 FROM detachments, roles
 WHERE detachments.name = 'Vanguard Detachment'
-  AND roles.name = 'Flyers';
+  AND roles.name = 'Flyer';
 
 INSERT INTO detachments
   (name, commandCost, restrictions, commandBenefits, dedicatedTransports)
@@ -280,7 +280,7 @@ INSERT INTO detachment_slots
 SELECT detachments.id, roles.id, 0, 2
 FROM detachments, roles
 WHERE detachments.name = 'Spearhead Detachment'
-  AND roles.name = 'Flyers';
+  AND roles.name = 'Flyer';
 
 INSERT INTO detachments
   (name, commandCost, restrictions, commandBenefits, dedicatedTransports)
@@ -333,7 +333,7 @@ INSERT INTO detachment_slots
 SELECT detachments.id, roles.id, 0, 2
 FROM detachments, roles
 WHERE detachments.name = 'Outrider Detachment'
-  AND roles.name = 'Flyers';
+  AND roles.name = 'Flyer';
 
 INSERT INTO detachments
   (name, commandCost, restrictions, commandBenefits, dedicatedTransports)
@@ -429,40 +429,40 @@ INSERT INTO detachment_slots
   (detachmentId, roleId, min, max)
 SELECT detachments.id, roles.id, 0, 1
 FROM detachments, roles
-WHERE detachments.name = 'Vanguard Detachment'
+WHERE detachments.name = 'Auxiliary Support Detachment'
   AND roles.name = 'HQ';
 
 INSERT INTO detachment_slots
   (detachmentId, roleId, min, max)
 SELECT detachments.id, roles.id, 0, 1
 FROM detachments, roles
-WHERE detachments.name = 'Vanguard Detachment'
+WHERE detachments.name = 'Auxiliary Support Detachment'
   AND roles.name = 'Troops';
 
 INSERT INTO detachment_slots
   (detachmentId, roleId, min, max)
 SELECT detachments.id, roles.id, 0, 1
 FROM detachments, roles
-WHERE detachments.name = 'Vanguard Detachment'
+WHERE detachments.name = 'Auxiliary Support Detachment'
   AND roles.name = 'Elites';
 
 INSERT INTO detachment_slots
   (detachmentId, roleId, min, max)
 SELECT detachments.id, roles.id, 0, 1
 FROM detachments, roles
-WHERE detachments.name = 'Vanguard Detachment'
+WHERE detachments.name = 'Auxiliary Support Detachment'
   AND roles.name = 'Fast Attack';
 
 INSERT INTO detachment_slots
   (detachmentId, roleId, min, max)
 SELECT detachments.id, roles.id, 0, 1
 FROM detachments, roles
-WHERE detachments.name = 'Vanguard Detachment'
+WHERE detachments.name = 'Auxiliary Support Detachment'
   AND roles.name = 'Heavy Support';
 
 INSERT INTO detachment_slots
   (detachmentId, roleId, min, max)
 SELECT detachments.id, roles.id, 0, 1
 FROM detachments, roles
-WHERE detachments.name = 'Vanguard Detachment'
-  AND roles.name = 'Flyers';
+WHERE detachments.name = 'Auxiliary Support Detachment'
+  AND roles.name = 'Flyer';
