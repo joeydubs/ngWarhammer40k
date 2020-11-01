@@ -80,30 +80,57 @@ app.get('/getDetachmentSlots', async function (req, res) {
 	}
 })
 
-app.post('/fetchUnitList', function (req, res) {
-	let faction = req.body.faction
-	let role = req.body.role
-	codex.getUnitList(faction, role, function (err, result) {
-		if (err) {
-			console.log(err.message)
-		}
-		res.status(200)
-		res.type('json')
-		res.send(JSON.stringify(result))
-	})
+app.get('/getRoleList', async function (req, res) {
+	res.setHeader("Content-Type", "application/json");
+
+	try {
+		let roles = await codex.getRoleList();
+
+		res.status(200);
+		res.send(roles);
+	}
+	catch (error) {
+		console.log(error);
+		res.status(500);
+		res.send(error.message);
+	}
 })
 
-app.post('/fetchSubfactions', function (req, res) {
-	let faction = req.body.faction
+app.get('/getUnitList', async function (req, res) {
+	res.setHeader("Content-Type", "application/json");
 
-	codex.getSubfactions(faction, function (err, result) {
-		if (err) {
-			console.log(err.message)
-		}
-		res.status(200)
-		res.type('json')
-		res.send(JSON.stringify(result))
-	})
+	let factionId = req.query.factionId
+	let roleId = req.query.roleId
+
+	try {
+		let units = await codex.getUnitList(factionId, roleId);
+
+		res.status(200);
+		res.send(units);
+	}
+	catch (error) {
+		console.log(error);
+		res.status(500);
+		res.send(error.message);
+	}
+})
+
+app.get('/getSubfactionList', async function (req, res) {
+	res.setHeader("Content-Type", "application/json");
+
+	let factionId = req.query.factionId
+
+	try {
+		let subfactions = await codex.getSubfactions(factionId);
+
+		res.status(200);
+		res.send(subfactions);
+	}
+	catch (error) {
+		console.log(error);
+		res.status(500);
+		res.send(error.message);
+	}
 })
 
 app.post('/fetchUnit', function (req, res) {

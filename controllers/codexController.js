@@ -434,62 +434,36 @@ class CodexController {
         return detachmentSlots;
     }
 
-    getUnitList(faction, role, respond) {
-        var query = `SELECT units.name
-            FROM units
-            INNER JOIN factions ON units.factionID = factions.id
-            WHERE factions.id = "${faction}"`
+    async getRoleList() {
+        let query = "SELECT * FROM roles";
+        let roles = await pool.query(query);
 
-        if (role != "Any") {
-            query += ` AND units.role = "${role}"`
-        }
-        console.log(query)
-
-        var message = []
-
-        var callback = function (err, row) {
-            if (err) {
-                console.log(err.message)
-            }
-            else {
-                message.push(row.name)
-            }
-        }
-
-        var completion = function (err, rows) {
-            if (err) {
-                console.log(err.message)
-            }
-            respond(err, message)
-        }
-
-        this.pool.each(query, callback, completion)
+        return roles;
     }
 
-    getSubfactions(faction, respond) {
-        let query = `SELECT name
-            FROM subfactions
-            WHERE faction = "${faction}"`
+    async getUnitList(factionId, roleId) {
+        var query =
+            `
+            SELECT units.id, units.name
+            FROM units
+            INNER JOIN factions ON units.factionId = factions.id
+            WHERE factions.id = ?
+            `
 
-        var message = []
-
-        let callback = function (err, row) {
-            if (err) {
-                console.log(err.message)
-            }
-            else {
-                message.push(row.name)
-            }
+        if (roleId != 0) {
+            query += "AND units.roleId = ?";
         }
 
-        let completion = function (err, rows) {
-            if (err) {
-                console.log(err.message)
-            }
-            respond(err, message)
-        }
+        let units = await pool.query(query, [factionId, roleId])
 
-        this.pool.each(query, callback, completion)
+        return units;
+    }
+
+    async getSubfactions(factionId) {
+        let query = "SELECT name FROM subfactions WHERE factionId = ?"
+        let subfactions = await pool.query(query, [factionId]);
+
+        return subfactions;
     }
 
     getModelStats(unit, respond) {

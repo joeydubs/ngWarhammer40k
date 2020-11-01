@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import { UnitStats, UnitWoundTrack } from './unit';
-import { Faction, Detachment, DetachmentSlot } from './codexInterface';
+import { Faction, Detachment, DetachmentSlot, Role, Unit, Subfaction } from './codexInterface';
 
 @Injectable({
   providedIn: 'root'
@@ -62,46 +62,45 @@ export class CodexService {
       );
   }
 
-  getRoleList(): string[] {
+  getRoleList(): Observable<Role[]> {
     this.log("fetched Roles");
-    return [
-      "Any",
-      "HQ",
-      "Troops",
-      "Elites",
-      "Fast Attack",
-      "Heavy Support",
-      "Dedicated Transport",
-      "Flyer",
-      "Fortification",
-      "Lord of War"
-    ]
+    return this.http.get<Role[]>(`${this.apiUrl}/getRoleList`)
+      .pipe(
+        tap( _ => this.log("fetched Roles")),
+        catchError(this.handleError<Faction[]>('getRoleList', []))
+      );
   }
 
-  getUnitList(faction: string, role: string): Observable<string[]> {
+  getUnitList(factionId: number, roleId: number): Observable<Unit[]> {
     this.log("fetching Units");
-    return this.http.post<string[]>(`${this.apiUrl}/fetchUnitList`, {"faction": faction, "role": role})
+    console.log("roleId: " + roleId);
+    let options = { "params": { "factionId": String(factionId), "roleId": String(roleId) } }
+    return this.http.get<Unit[]>(`${this.apiUrl}/getUnitList`, options)
       .pipe(
         tap(_ => this.log("fetched Units"),
-        catchError(this.handleError<string[]>('getUnitList', [])))
+        catchError(this.handleError<Unit[]>('getUnitList', [])))
       )
   }
 
-  getUnit() {
-    // request.open("POST", "/getUnit")
-    // request.setRequestHeader("Content-Type", "application/json");
-    // request.send(JSON.stringify({ "unit": unitName }))
+  getUnit(unitId: number): Observable<Unit> {
+    this.log("fetching Unit");
+    let options = { "params": { "unitId": String(unitId) } }
+    return this.http.get<Unit>(`${this.apiUrl}/getUnit`, options)
+      .pipe(
+        tap(_ => this.log("fetched Units"),
+        catchError(this.handleError<Unit>('getUnit')))
+      )
   }
 
-  getSubfactionsList(faction: string): Observable<string[]> {
+  getSubfactionList(factionId: number): Observable<Subfaction[]> {
     this.log("fetching Subfactions");
-    return this.http.post<string[]>(`${this.apiUrl}/fetchSubfactions`, { "faction": faction })
+    let options = { "params": {"factionId": String(factionId)} }
+    return this.http.get<Subfaction[]>(`${this.apiUrl}/getSubfactionList`, options)
       .pipe(
         tap(_ => this.log("fetched Subfactions")),
-        catchError(this.handleError<string[]>('getSubfactionsList', []))
+        catchError(this.handleError<Subfaction[]>('getSubfactionList', []))
       )
   }
-
 
   getStats(unit: string): Observable<UnitStats[]> {
     this.log(`fetching Stats for ${unit}`)

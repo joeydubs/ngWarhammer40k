@@ -52,7 +52,7 @@
               </tr>
               <tr>
                 <th>Selected</th>
-                <td *ngFor="let slot of slots">0</td>
+                <td *ngFor="let slot of slots">{{ slotsFilled[slot] }}</td>
               </tr>
             </table>
           </div>
@@ -67,24 +67,27 @@
             <h3>Add Unit</h3>
             <div class="form-group">
               <!-- <label for="role">Role</label> -->
-              <select class="form-control" id="role">
-                <option value="" disabled>-- Any (Role) --</option>
+              <select class="form-control" id="role" [(ngModel)]="selectedRole" (ngModelChange)="roleSelected()" [disabled]='selectedFaction == undefined'>
+                <option [ngValue]="{name: 'Any', id: 0}">-- Any Role --</option>
+                <option *ngFor="let role of roles" [ngValue]="role">{{ role.name }}</option>
               </select>
             </div>
             <div class="form-group">
               <!-- <label for="unit">Unit</label> -->
-              <select class="form-control" id="unit">
-                <option value="" disabled>-- Unit --</option>
+              <select class="form-control" id="unit" [(ngModel)]="selectedUnit" (ngModelChange)="unitSelected()" [disabled]='selectedFaction == undefined'>
+                <option value="undefined" disabled>-- Unit --</option>
+                <option *ngFor="let unit of units" [ngValue]="unit">{{ unit.name }}</option>
               </select>
             </div>
             <div class="form-group">
               <!-- <label for="subfaction">Subfaction</label> -->
-              <select class="form-control" id="unit">
-                <option value="" disabled>-- Subfaction --</option>
+              <select class="form-control" id="unit" [(ngModel)]="selectedSubfaction" [disabled]='selectedFaction == undefined'>
+                <option value="undefined" disabled>-- Subfaction --</option>
+                <option *ngFor="let subfaction of subfactions" [ngValue]="subfaction">{{ subfaction.name }}</option>
               </select>
             </div>
-            <hr />
-            <p>Display unit options for user to select.</p>
+            <hr *ngIf="selectedUnit != undefined" />
+            <p *ngIf="selectedUnit != undefined">Display unit options for user to select.</p>
           </div>
         </div>
       </div>
