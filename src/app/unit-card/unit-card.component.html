@@ -1,0 +1,7 @@
+<div class="container-fluid">
+  <h4>{{ unit.name }}</h4>
+  <p>{{ unit.description }}</p>
+  <div *ngIf="models">
+    <p *ngFor="let model of models">{{ model.name }}</p>
+  </div>
+</div>

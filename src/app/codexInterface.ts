@@ -21,7 +21,7 @@ export interface Detachment {
   restrictions: string,
   commandBenefits: string,
   dedicatedTransports: boolean,
-  slots: {string: DetachmentSlot}
+  slots: { string: DetachmentSlot }
 }
 
 export interface DetachmentSlot {
@@ -39,4 +39,41 @@ export interface Unit {
   role: Role,
   power: number,
   faction: Faction
+}
+
+export interface Model {
+  id: number,
+  name: string,
+  hasWoundTrack: boolean,
+  points: number,
+  stats: ModelStats[],
+  woundTrack: WoundTrack[]
+}
+
+export interface ModelStats {
+  id: number,
+  modelId: number,
+  profileName: string,
+  move: string,
+  weapon: string,
+  ballistic: string,
+  strength: string,
+  toughness: string,
+  wounds: string,
+  attacks: string,
+  leadership: string,
+  save: string
+}
+
+export interface WoundTrack {
+  id: number,
+  modelId: number,
+  tier: number,
+  wounds: string,
+  char1name: string,
+  char1value: string,
+  char2name: string,
+  char2value: string,
+  char3name: string,
+  char3value: string
 }

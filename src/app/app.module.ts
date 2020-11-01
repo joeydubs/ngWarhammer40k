@@ -13,6 +13,7 @@ import { UnitStatsComponent } from './unit-stats/unit-stats.component';
 import { UnitOptionsComponent } from './unit-options/unit-options.component';
 import { ForgeComponent } from './forge/forge.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UnitCardComponent } from './unit-card/unit-card.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MessagesComponent,
     UnitStatsComponent,
     UnitOptionsComponent,
-    ForgeComponent
+    ForgeComponent,
+    UnitCardComponent
   ],
   imports: [
     BrowserModule,

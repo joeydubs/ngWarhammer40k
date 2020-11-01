@@ -133,17 +133,76 @@ app.get('/getSubfactionList', async function (req, res) {
 	}
 })
 
-app.post('/fetchUnit', function (req, res) {
-	var unit = req.body.unit
+app.get('/getUnitDetails', async function (req, res) {
+	res.setHeader("Content-Type", "application/json");
 
-	codex.getUnitDetails(unit, function (err, result) {
-		if (err) {
-			console.log(err.message)
-		}
-		res.status(200)
-		res.type('json')
-		res.send(JSON.stringify(result))
-	})
+	var unitId = req.query.unitId
+
+	try {
+		let unit = await codex.getUnitDetails(unitId);
+
+		res.status(200);
+		res.send(unit);
+	}
+	catch (error) {
+		console.log(error);
+		res.status(500);
+		res.send(error.message);
+	}
+})
+
+app.get('/getModels', async function (req, res) {
+	res.setHeader("Content-Type", "application/json");
+
+	let unitId = req.query.unitId;
+
+	try {
+		let models = await codex.getModels(unitId);
+
+		res.status(200);
+		res.send(models);
+	}
+	catch (error) {
+		console.log(error);
+		res.status(500);
+		res.send(error.message);
+	}
+})
+
+app.get('/getModelStats', async function (req, res) {
+	res.setHeader("Content-Type", "application/json");
+
+	let modelId = req.query.modelId;
+
+	try {
+		let modelStats = await codex.getModelStats(modelId);
+
+		res.status(200);
+		res.send(modelStats);
+	}
+	catch (error) {
+		console.log(error);
+		res.status(500);
+		res.send(error.message);
+	}
+})
+
+app.get('/getWoundTrack', async function (req, res) {
+	res.setHeader("Content-Type", "application/json");
+
+	let modelId = req.query.modelId;
+
+	try {
+		let woundTrack = await codex.getWoundTrack(modelId);
+
+		res.status(200);
+		res.send(woundTrack);
+	}
+	catch (error) {
+		console.log(error);
+		res.status(500);
+		res.send(error.message);
+	}
 })
 
 app.post('/fetchUnitStats', function (req, res) {

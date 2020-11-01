@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CodexService } from '../codex.service';
-import { Faction, Detachment, Role, Unit, Subfaction } from '../codexInterface';
+import { Faction, Subfaction, Detachment, Role, Unit, Model} from '../codexInterface';
 
 @Component({
   selector: 'app-forge',
@@ -19,6 +19,7 @@ export class ForgeComponent implements OnInit {
   detachment: Detachment;
   slots: string[] = [];
   slotsFilled: {} = {};
+  models: Model[];
 
   selectedFaction: Faction;
   selectedDetachment: Detachment;
@@ -85,8 +86,9 @@ export class ForgeComponent implements OnInit {
   }
 
   roleSelected() {
+    this.selectedUnit = undefined;
     this.units = [];
-    console.log(this.selectedRole ? this.selectedRole.id : 0);
+
     this.codexService.getUnitList(this.faction.id, this.selectedRole ? this.selectedRole.id : 0).subscribe(
       (response) => {
         this.units = response;
@@ -95,6 +97,12 @@ export class ForgeComponent implements OnInit {
   }
 
   unitSelected() {
-    // TODO
+    this.models = undefined;
+
+    this.codexService.getModels(this.selectedUnit.id).subscribe(
+      (response) => {
+        this.models = response;
+      }
+    )
   }
 }

@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import { UnitStats, UnitWoundTrack } from './unit';
-import { Faction, Detachment, DetachmentSlot, Role, Unit, Subfaction } from './codexInterface';
+import { Faction, Detachment, DetachmentSlot, Role, Unit, Subfaction, ModelStats, Model, WoundTrack } from './codexInterface';
 
 @Injectable({
   providedIn: 'root'
@@ -73,7 +73,6 @@ export class CodexService {
 
   getUnitList(factionId: number, roleId: number): Observable<Unit[]> {
     this.log("fetching Units");
-    console.log("roleId: " + roleId);
     let options = { "params": { "factionId": String(factionId), "roleId": String(roleId) } }
     return this.http.get<Unit[]>(`${this.apiUrl}/getUnitList`, options)
       .pipe(
@@ -82,13 +81,13 @@ export class CodexService {
       )
   }
 
-  getUnit(unitId: number): Observable<Unit> {
-    this.log("fetching Unit");
+  getUnitDetails(unitId: number): Observable<Unit> {
+    this.log("fetching Unit Details");
     let options = { "params": { "unitId": String(unitId) } }
-    return this.http.get<Unit>(`${this.apiUrl}/getUnit`, options)
+    return this.http.get<Unit>(`${this.apiUrl}/getUnitDetails`, options)
       .pipe(
-        tap(_ => this.log("fetched Units"),
-        catchError(this.handleError<Unit>('getUnit')))
+        tap(_ => this.log("fetched Unit Details"),
+        catchError(this.handleError<Unit>('getUnitDetails')))
       )
   }
 
@@ -102,21 +101,33 @@ export class CodexService {
       )
   }
 
-  getStats(unit: string): Observable<UnitStats[]> {
-    this.log(`fetching Stats for ${unit}`)
-    return this.http.post<UnitStats[]>(`${this.apiUrl}/fetchUnitStats`, { "unit": unit })
+  getModels(unitId: number): Observable<Model[]> {
+    this.log("fetching Models");
+    let options = { "params": {"unitId": String(unitId)} };
+    return this.http.get<Model[]>(`${this.apiUrl}/getModels`, options)
       .pipe(
-        tap(_ => this.log("fetched Stats")),
-        catchError(this.handleError<UnitStats[]>('getStats', []))
+        tap(_ => this.log("fetched Models")),
+        catchError(this.handleError<Model[]>('getModels', []))
       )
   }
 
-  getUnitWoundTrack(unit: string): Observable<UnitWoundTrack[]> {
-    this.log(`fetching Unit Wound Track for ${unit}`);
-    return this.http.post<UnitWoundTrack[]>(`${this.apiUrl}/fetchUnitWoundTrack`, {"unit": unit})
+  getModelStats(modelId: number): Observable<ModelStats[]> {
+    this.log("fetching Model Stats");
+    let options = { "params": {"modelId": String(modelId)} };
+    return this.http.get<ModelStats[]>(`${this.apiUrl}/getModelStats`, options)
       .pipe(
-        tap(_ => this.log("fetched Unit Wound Track")),
-        catchError(this.handleError<UnitWoundTrack[]>('getUnitWoundTrack', []))
+        tap(_ => this.log("fetched Model Stats")),
+        catchError(this.handleError<ModelStats[]>('getModelStats', []))
+      )
+  }
+
+  getWoundTrack(modelId: number): Observable<WoundTrack[]> {
+    this.log(`fetching Wound Track`);
+    let options = { "params": {"modelId": String(modelId)} };
+    return this.http.get<WoundTrack[]>(`${this.apiUrl}/getWoundTrack`, options)
+      .pipe(
+        tap(_ => this.log("fetched Wound Track")),
+        catchError(this.handleError<WoundTrack[]>('getWoundTrack', []))
       )
   }
 

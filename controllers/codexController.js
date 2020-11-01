@@ -412,7 +412,7 @@ class CodexController {
     }
 
     async getDetachmentSlots(detachmentId) {
-        let query = 
+        let query =
             `
             SELECT detachmentId, roleId, min, max, roles.name FROM detachment_slots
             INNER JOIN roles ON detachment_slots.roleId = roles.id
@@ -442,19 +442,42 @@ class CodexController {
     }
 
     async getUnitList(factionId, roleId) {
-        var query =
+        let query =
             `
-            SELECT units.id, units.name
+            SELECT units.*, roles.name AS roleName, factions.name AS factionName
             FROM units
-            INNER JOIN factions ON units.factionId = factions.id
-            WHERE factions.id = ?
-            `
+            INNER JOIN roles on units.roleId = roles.id
+            INNER JOIN factions on units.factionId = factions.id
+            WHERE units.factionId = ?
+            `;
 
         if (roleId != 0) {
             query += "AND units.roleId = ?";
         }
 
-        let units = await pool.query(query, [factionId, roleId])
+        let results = await pool.query(query, [factionId, roleId]);
+
+        let units = [];
+
+        for (let result of results) {
+            units.push(
+                {
+                    id: result.id,
+                    name: result.name,
+                    description: result.description,
+                    options: result.options,
+                    role: {
+                        id: result.roleId,
+                        name: result.roleName
+                    },
+                    power: result.power,
+                    faction: {
+                        id: result.factionId,
+                        name: result.factionName
+                    }
+                }
+            )
+        }
 
         return units;
     }
@@ -466,130 +489,82 @@ class CodexController {
         return subfactions;
     }
 
-    getModelStats(unit, respond) {
+    async getUnitDetails(unitId) {
         let query =
-            `SELECT models.name AS modelName, models.hasWoundTrack, stats.id AS statsId, statName, move AS m, weapon AS ws, ballistic AS bs, strength AS s, toughness AS t, wounds AS w, attacks AS a, leadership AS ld, save AS sv
-        FROM stats
-        INNER JOIN models ON models.id = stats.modelID
-        INNER JOIN model_unit_join ON models.id = model_unit_join.model
-        INNER JOIN units ON units.id = model_unit_join.unit
-        WHERE units.name = "${unit}"
-        ORDER BY stats.id`
+            `
+            SELECT units.*, roles.name AS roleName, factions.name AS factionName
+            FROM units
+            INNER JOIN roles on units.roleId = roles.id
+            INNER JOIN factions on units.factionId = factions.id
+            WHERE units.id = ?
+            `;
 
-        console.log(query);
+        let response = await pool.query(query, [unitId]);
+        response = response.pop();
 
-        var message = []
-
-        var callback = function (err, row) {
-            if (err) {
-                console.log(err.message)
-            }
-            else {
-                message.push(row)
+        let unit = {
+            id: response.id,
+            name: response.name,
+            description: response.description,
+            options: response.options,
+            role: {
+                id: response.roleId,
+                name: response.roleName
+            },
+            power: response.power,
+            faction: {
+                id: response.factionId,
+                name: response.factionName
             }
         }
 
-        var completion = function (err, rows) {
-            if (err) {
-                console.log(err.message)
-            }
-            respond(err, message)
-        }
-
-        this.pool.each(query, callback, completion)
+        return unit;
     }
 
-    getModelWoundTrack(model, respond) {
-        let query =
-            `SELECT wt.id, modelID, tier, remainingW, char1name, char1value, char2name, char2value, char3name, char3value
-        FROM wound_tracks AS wt
-        INNER JOIN models ON models.id = wt.modelID
-        WHERE models.name = "${model}"
-        ORDER BY wt.tier`
+    async getModels(unitId) {
+        let query = 
+            `
+            SELECT *
+            FROM models
+            INNER JOIN model_unit_join ON models.id = modelId
+            WHERE unitId = ?
+            `;
+        
+        let models = await pool.query(query, [unitId]);
 
-        var message = []
-
-        var callback = function (err, row) {
-            if (err) {
-                console.log(err.message)
-            }
-            else {
-                message.push(row)
-            }
-        }
-
-        var completion = function (err, rows) {
-            if (err) {
-                console.log(err.message)
-            }
-            respond(err, message)
-        }
-
-        this.pool.each(query, callback, completion)
+        return models;
     }
 
-    getUnitDetails(unit, respond) {
+    async getModelStats(modelId) {
         let query =
-            `SELECT models.name AS name, models.id AS modelid, faction_keywords.name AS factionKeyword, wargear.name AS gear, wargear.id AS gearid, units.description, options, min, max, models.points AS modelcost, wargear.points AS gearcost, power
-            FROM wargear
-            INNER JOIN model_wargear_join ON wargear.id = model_wargear_join.wargear
-            INNER JOIN models ON model_wargear_join.model = models.id
-            INNER JOIN model_unit_join ON model_unit_join.model = models.id
-            INNER JOIN units ON model_unit_join.unit = units.id
-            LEFT OUTER JOIN unit_faction_keywords_join ON unit_faction_keywords_join.unitID = units.id
-            LEFT OUTER JOIN faction_keywords ON unit_faction_keywords_join.factionKeywordID = faction_keywords.id
-            WHERE units.name = "${unit}"`
+            `
+            SELECT *
+            FROM stats
+            INNER JOIN models ON models.id = stats.modelId
+            INNER JOIN model_unit_join ON models.id = model_unit_join.modelId
+            INNER JOIN units ON units.id = model_unit_join.unitId
+            WHERE units.id = ?
+            ORDER BY stats.id
+            `;
 
-        var message = {
-            models: {},
-            factionKeywords: []
-        }
+        let modelStats = await pool.query(query, [modelId]);
 
-        var callback = function (err, row) {
-            if (err) {
-                console.log(err.message)
-            }
-            else {
-                if (!message.description) {
-                    message["description"] = row.description
-                }
-                if (!message.options) {
-                    message["options"] = row.options
-                }
+        return modelStats;
+    }
 
-                if (!message.factionKeywords.includes(row.factionKeyword)) {
-                    message.factionKeywords.push(row.factionKeyword)
-                }
+    async getWoundTrack(modelId) {
+        let query =
+            `
+            SELECT *
+            FROM wound_tracks AS wt
+            INNER JOIN models ON models.id = wt.modelId
+            WHERE models.id = ?
+            ORDER BY wt.tier
+            `;
 
-                var name = row.name
-                if (!message.models[name]) {
-                    var model = {
-                        gear: {}
-                    }
-                    message.models[name] = model
-                }
-                message.models[name]["id"] = row.modelid
-                message.models[name]["hasWoundTrack"] = row.hasWoundTrack
-                message.models[name]["min"] = row.min
-                message.models[name]["max"] = row.max
-                message.models[name]["cost"] = row.modelcost
-                message.models[name]["power"] = row.power
-                var gear = {
-                    cost: row.gearcost,
-                    id: row.gearid
-                }
-                message.models[name]["gear"][row.gear] = gear
-            }
-        }
+        let woundTrack = await pool.query(query, [modelId]);
 
-        var completion = function (err, rows) {
-            if (err) {
-                console.log(err.message)
-            }
-            respond(err, message)
-        }
-
-        this.pool.each(query, callback, completion)
+        return woundTrack;
     }
 
     getArmy(respond) {
