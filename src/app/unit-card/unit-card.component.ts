@@ -36,5 +36,4 @@ export class UnitCardComponent implements OnInit {
       }
     }
   }
-
 }

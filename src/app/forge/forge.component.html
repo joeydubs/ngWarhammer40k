@@ -93,12 +93,9 @@
       </div>
       <div class="col-lg-8">
         <div class="card bg-light shadow">
-          <div class="card-body">
-            <h3>Unit Card for Selected Unit</h3>
-            <app-unit-card *ngIf="selectedUnit"
+            <app-unit-card
               [unit]="selectedUnit"
               [models]="models"></app-unit-card>
-          </div>
         </div>
       </div>
     </div>

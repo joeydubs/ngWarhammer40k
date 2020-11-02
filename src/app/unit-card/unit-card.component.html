@@ -1,7 +1,42 @@
-<div class="container-fluid">
-  <h4>{{ unit.name }}</h4>
-  <p>{{ unit.description }}</p>
+<div class="card-body" *ngIf="!unit">
+  <h3>Unit Details</h3>
+  <p>Please select a Unit from the "Add Unit" section.</p>
+</div>
+
+<div class="card-body" *ngIf="unit">
+  <h3>{{ unit.name }}</h3>
   <div *ngIf="models">
-    <p *ngFor="let model of models">{{ model.name }}</p>
+    <table class="table table-striped shadow">
+      <thead class="thead-dark">
+        <tr>
+          <th>Name</th>
+          <th>M</th>
+          <th>WS</th>
+          <th>BS</th>
+          <th>S</th>
+          <th>T</th>
+          <th>W</th>
+          <th>A</th>
+          <th>Ld</th>
+          <th>Sv</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let model of models">
+        <tr *ngFor="let stats of model.stats">
+          <td>{{stats.profileName}}</td>
+          <td>{{stats.move}}</td>
+          <td>{{stats.weapon}}</td>
+          <td>{{stats.ballistic}}</td>
+          <td>{{stats.strength}}</td>
+          <td>{{stats.toughness}}</td>
+          <td>{{stats.wounds}}</td>
+          <td>{{stats.attacks}}</td>
+          <td>{{stats.leadership}}</td>
+          <td>{{stats.save}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>{{unit.description}}</p>
+    <p><span class="font-weight-bold">Wargear Options:</span> {{unit.options}}</p>
   </div>
 </div>

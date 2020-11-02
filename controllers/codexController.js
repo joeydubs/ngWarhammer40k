@@ -536,16 +536,7 @@ class CodexController {
     }
 
     async getModelStats(modelId) {
-        let query =
-            `
-            SELECT *
-            FROM stats
-            INNER JOIN models ON models.id = stats.modelId
-            INNER JOIN model_unit_join ON models.id = model_unit_join.modelId
-            INNER JOIN units ON units.id = model_unit_join.unitId
-            WHERE units.id = ?
-            ORDER BY stats.id
-            `;
+        let query = "SELECT * FROM stats WHERE stats.modelId = ?";
 
         let modelStats = await pool.query(query, [modelId]);
 

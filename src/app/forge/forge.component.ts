@@ -58,6 +58,8 @@ export class ForgeComponent implements OnInit {
     this.codexService.getUnitList(this.faction.id, this.selectedRole ? this.selectedRole.id : 0).subscribe(
       (response) => {
         this.units = response;
+
+        // TODO: Loop through units and pull in keywords and faction keywords.
       }
     )
 

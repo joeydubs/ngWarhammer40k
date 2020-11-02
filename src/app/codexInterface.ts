@@ -9,6 +9,16 @@ export interface Subfaction {
   faction: Faction
 }
 
+export interface Keywords {
+  id: number,
+  name: string
+}
+
+export interface FactionKeywords {
+  id: number,
+  name: string
+}
+
 export interface Role {
   id: number,
   name: string
@@ -38,7 +48,9 @@ export interface Unit {
   options: string,
   role: Role,
   power: number,
-  faction: Faction
+  faction: Faction,
+  keywords: Keywords[],
+  factionKeywords: FactionKeywords[]
 }
 
 export interface Model {
