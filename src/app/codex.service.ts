@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import { UnitStats, UnitWoundTrack } from './unit';
-import { Faction, Detachment, DetachmentSlot, Role, Unit, Subfaction, ModelStats, Model, WoundTrack } from './codexInterface';
+import { Faction, Detachment, DetachmentSlot, Role, Unit, Subfaction, ModelStats, Model, WoundTrack, Keyword, FactionKeyword } from './codexInterface';
 
 @Injectable({
   providedIn: 'root'
@@ -128,6 +128,26 @@ export class CodexService {
       .pipe(
         tap(_ => this.log("fetched Wound Track")),
         catchError(this.handleError<WoundTrack[]>('getWoundTrack', []))
+      )
+  }
+
+  getKeywords(unitId: number): Observable<Keyword[]> {
+    this.log("fetching Keywords");
+    let options = { "params": { "unitId": String(unitId) } }
+    return this.http.get<Keyword[]>(`${this.apiUrl}/getKeywords`, options)
+      .pipe(
+        tap(_ => this.log("fetched Keywords")),
+        catchError(this.handleError<Keyword[]>('getKeywords', []))
+      )
+  }
+
+  getFactionKeywords(unitId: number): Observable<FactionKeyword[]> {
+    this.log("fetching FactionKeywords");
+    let options = { "params": { "unitId": String(unitId) } }
+    return this.http.get<FactionKeyword[]>(`${this.apiUrl}/getFactionKeywords`, options)
+      .pipe(
+        tap(_ => this.log("fetched FactionKeywords")),
+        catchError(this.handleError<FactionKeyword[]>('getFactionKeywords', []))
       )
   }
 

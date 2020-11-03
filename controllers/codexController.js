@@ -558,6 +558,34 @@ class CodexController {
         return woundTrack;
     }
 
+    async getKeywords(unitId) {
+        let query =
+            `
+            SELECT keywords.*
+            FROM keywords
+            INNER JOIN unit_keywords_join ukj ON keywords.id = ukj.keywordId
+            WHERE unitId = ?
+            `;
+
+        let keywords = await pool.query(query, [unitId]);
+
+        return keywords;
+    }
+
+    async getFactionKeywords(unitId) {
+        let query =
+            `
+            SELECT faction_keywords.*
+            FROM faction_keywords
+            INNER JOIN unit_faction_keywords_join ufkj ON faction_keywords.id = ufkj.factionKeywordId
+            WHERE unitId = ?
+            `;
+
+        let factionKeywords = await pool.query(query, [unitId]);
+
+        return factionKeywords;
+    }
+
     getArmy(respond) {
         let query =
             `SELECT user_army.id, user_army.points, units.name AS unit, units.role, subfactions.name AS subfaction, models.name AS model, army_models.quantity, stats.move, stats.weapon, stats.ballistic, stats.strength, stats.toughness, stats.wounds, stats.attacks, stats.leadership, stats.save, wargear.name AS wargear, wargear_stats.profile AS wargearProfile, wargear_stats.range AS wargearRange, wargear_stats.type AS wargearType, wargear_stats.strength AS wargearStrength, wargear_stats.armorPen AS wargearArmorPen, wargear_stats.damage AS wargearDamage, wargear_stats.abilities AS wargearAbilities, abilities.name as abilityName, abilities.ability as abilityDescription

@@ -38,5 +38,7 @@
     </table>
     <p>{{unit.description}}</p>
     <p><span class="font-weight-bold">Wargear Options:</span> {{unit.options}}</p>
+    <p *ngIf="unit.factionKeywords"><span class="font-weight-bold">Faction Keywords:</span> {{factionKeywords}}</p>
+    <p *ngIf="unit.keywords"><span class="font-weight-bold">Keywords:</span> {{keywords}}</p>
   </div>
 </div>

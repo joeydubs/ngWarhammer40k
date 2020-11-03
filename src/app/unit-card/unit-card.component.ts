@@ -36,4 +36,7 @@ export class UnitCardComponent implements OnInit {
       }
     }
   }
+
+  get keywords() { return this.unit.keywords.map(keyword => keyword.name).join(', '); }
+  get factionKeywords() { return this.unit.factionKeywords.map(factionKeyword => factionKeyword.name).join(', '); }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { forkJoin, from, of } from 'rxjs';
+import { mergeMap, switchMap } from 'rxjs/operators';
 import { CodexService } from '../codex.service';
-import { Faction, Subfaction, Detachment, Role, Unit, Model} from '../codexInterface';
+import { Faction, Subfaction, Detachment, Role, Unit, Model, Keyword, FactionKeyword } from '../codexInterface';
 
 @Component({
   selector: 'app-forge',
@@ -51,17 +53,41 @@ export class ForgeComponent implements OnInit {
 
   get slotCount() { return Object.keys(this.detachment.slots).length; }
 
+  refreshUnits() {
+    this.selectedUnit = undefined;
+    this.units = [];
+
+    this.codexService.getUnitList(this.faction.id, this.selectedRole ? this.selectedRole.id : 0).pipe(
+      switchMap(units => {
+        this.units = units;
+        return from(units);
+      }),
+      mergeMap((unit, index) => {
+        return forkJoin([
+          of(index),
+          this.codexService.getKeywords(unit.id),
+          this.codexService.getFactionKeywords(unit.id)
+        ])
+      })
+    ).subscribe(
+      (response) => {
+        let index = response[0] as number;
+        let keywords = response[1] as Keyword[]
+        let factionKeywords = response [2] as FactionKeyword[];
+
+        this.units[index].keywords = keywords;
+        this.units[index].factionKeywords = factionKeywords
+
+        console.log(this.units[index]);
+      }
+    )
+  }
+
   factionSelected() {
     // TODO: Add confirmation if Detachment is already partially built.
     this.faction = this.selectedFaction;
-
-    this.codexService.getUnitList(this.faction.id, this.selectedRole ? this.selectedRole.id : 0).subscribe(
-      (response) => {
-        this.units = response;
-
-        // TODO: Loop through units and pull in keywords and faction keywords.
-      }
-    )
+    
+    this.refreshUnits();
 
     this.codexService.getSubfactionList(this.faction.id).subscribe(
       (response) => {
@@ -88,14 +114,7 @@ export class ForgeComponent implements OnInit {
   }
 
   roleSelected() {
-    this.selectedUnit = undefined;
-    this.units = [];
-
-    this.codexService.getUnitList(this.faction.id, this.selectedRole ? this.selectedRole.id : 0).subscribe(
-      (response) => {
-        this.units = response;
-      }
-    )
+    this.refreshUnits();
   }
 
   unitSelected() {

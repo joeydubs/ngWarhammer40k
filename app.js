@@ -205,6 +205,42 @@ app.get('/getWoundTrack', async function (req, res) {
 	}
 })
 
+app.get('/getKeywords', async function (req, res) {
+	res.setHeader("Content-Type", "application/json");
+
+	let unitId = req.query.unitId
+
+	try {
+		let keywords = await codex.getKeywords(unitId);
+
+		res.status(200);
+		res.send(keywords);
+	}
+	catch (error) {
+		console.log(error);
+		res.status(500);
+		res.send(error.message);
+	}
+})
+
+app.get('/getFactionKeywords', async function (req, res) {
+	res.setHeader("Content-Type", "application/json");
+
+	let unitId = req.query.unitId
+
+	try {
+		let factionKeywords = await codex.getFactionKeywords(unitId);
+
+		res.status(200);
+		res.send(factionKeywords);
+	}
+	catch (error) {
+		console.log(error);
+		res.status(500);
+		res.send(error.message);
+	}
+})
+
 app.post('/fetchUnitStats', function (req, res) {
 	var unit = req.body.unit
 
