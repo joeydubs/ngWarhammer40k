@@ -2,7 +2,7 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { forkJoin, from, of } from 'rxjs';
 import { mergeMap, switchMap } from 'rxjs/operators';
 import { CodexService } from '../codex.service';
-import { Unit, Model, Wargear, WargearStats } from '../codexInterface';
+import { Unit, Model, Ability, Wargear, WargearStats } from '../codexInterface';
 
 @Component({
   selector: 'app-unit-card',

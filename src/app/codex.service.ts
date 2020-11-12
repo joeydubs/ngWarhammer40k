@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
-import { Faction, Detachment, DetachmentSlot, Role, Unit, Subfaction, ModelStats, Model, Keyword, FactionKeyword, Wargear, WargearStats } from './codexInterface';
+import { Faction, Detachment, DetachmentSlot, Role, Unit, Subfaction, ModelStats, Model, Keyword, FactionKeyword, Wargear, WargearStats, Ability } from './codexInterface';
 
 @Injectable({
   providedIn: 'root'
@@ -147,6 +147,16 @@ export class CodexService {
       .pipe(
         tap(_ => this.log("fetched Wargear Options")),
         catchError(this.handleError<string[]>('getWargearOptions', []))
+      )
+  }
+
+  getUnitAbilities(unitId: number): Observable<Ability[]> {
+    this.log("fetching Unit Abilities");
+    let options = { "params": { "unitId": String(unitId) } }
+    return this.http.get<Ability[]>(`${this.apiUrl}/getUnitAbilities`, options)
+      .pipe(
+        tap(_ => this.log("fetched Unit Abilities")),
+        catchError(this.handleError<Ability[]>('getUnitAbilities', []))
       )
   }
 

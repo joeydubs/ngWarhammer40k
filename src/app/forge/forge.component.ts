@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { forkJoin, from, of } from 'rxjs';
 import { mergeMap, switchMap } from 'rxjs/operators';
 import { CodexService } from '../codex.service';
-import { Faction, Subfaction, Detachment, Role, Unit, Model, Keyword, FactionKeyword } from '../codexInterface';
+import { Faction, Subfaction, Detachment, Role, Unit, Model, Ability, Keyword, FactionKeyword } from '../codexInterface';
 
 @Component({
   selector: 'app-forge',
@@ -66,17 +66,20 @@ export class ForgeComponent implements OnInit {
         return forkJoin([
           of(index),
           this.codexService.getKeywords(unit.id),
-          this.codexService.getFactionKeywords(unit.id)
+          this.codexService.getFactionKeywords(unit.id),
+          this.codexService.getUnitAbilities(unit.id)
         ])
       })
     ).subscribe(
       (response) => {
         let index = response[0] as number;
         let keywords = response[1] as Keyword[]
-        let factionKeywords = response [2] as FactionKeyword[];
+        let factionKeywords = response[2] as FactionKeyword[];
+        let unitAbilities = response[3] as Ability[];
 
         this.units[index].keywords = keywords;
         this.units[index].factionKeywords = factionKeywords
+        this.units[index].abilities = unitAbilities;
       }
     )
   }

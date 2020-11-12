@@ -596,6 +596,20 @@ class CodexController {
         return wargearOptions;
     }
 
+    async getUnitAbilities(unitId) {
+        let query =
+            `
+            SELECT abilities.*
+            FROM abilities
+            INNER JOIN unit_abilities_join uaj ON abilities.id = uaj.abilityId
+            WHERE uaj.unitId = ?
+            `;
+
+        let abilities = await pool.query(query, [unitId]);
+
+        return abilities;
+    }
+
     async getKeywords(unitId) {
         let query =
             `

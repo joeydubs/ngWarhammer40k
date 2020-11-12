@@ -241,6 +241,24 @@ app.get('/getWargearOptions', async function (req, res) {
 	}
 })
 
+app.get('/getUnitAbilities', async function (req, res) {
+	res.setHeader("Content-Type", "application/json");
+
+	let unitId = req.query.unitId
+
+	try {
+		let abilities = await codex.getUnitAbilities(unitId);
+
+		res.status(200);
+		res.send(abilities);
+	}
+	catch (error) {
+		console.log(error);
+		res.status(500);
+		res.send(error.message);
+	}
+})
+
 app.get('/getKeywords', async function (req, res) {
 	res.setHeader("Content-Type", "application/json");
 
@@ -283,19 +301,6 @@ app.post('/fetchUnitStats', function (req, res) {
 	console.log(unit)
 
 	codex.getModelStats(unit, function (err, result) {
-		if (err) {
-			console.log(err.message)
-		}
-		res.status(200)
-		res.type('json')
-		res.send(JSON.stringify(result))
-	})
-})
-
-app.post('/fetchUnitWoundTrack', function (req, res) {
-	var unit = req.body.unit
-
-	codex.getModelWoundTrack(unit, function (err, result) {
 		if (err) {
 			console.log(err.message)
 		}

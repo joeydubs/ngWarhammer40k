@@ -50,6 +50,7 @@ export interface Unit {
   faction: Faction,
   keywords: Keyword[],
   factionKeywords: FactionKeyword[],
+  abilities: Ability[]
 }
 
 export interface Model {
