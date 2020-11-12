@@ -67,7 +67,7 @@ INSERT INTO wargear_stats (
     gearDamage,
     gearAbilities
 )
-SELECT null, wargear.id, '(shooting)', '36', 'Assault 1', '8', -4, 'D6',  '-'
+SELECT null, wargear.id, 'Eldritch Lance (shooting)', '36', 'Assault 1', '8', -4, 'D6',  '-'
 FROM wargear
 WHERE wargear.name = 'Eldritch Lance';
 
@@ -82,7 +82,7 @@ INSERT INTO wargear_stats (
     gearDamage,
     gearAbilities
 )
-SELECT null, wargear.id, '(melee)', 'Melee', 'Melee', 'User', -2, '1',  '-'
+SELECT null, wargear.id, 'Eldritch Lance (melee)', 'Melee', 'Melee', 'User', -2, '1',  '-'
 FROM wargear
 WHERE wargear.name = 'Eldritch Lance';
 
@@ -307,7 +307,7 @@ INSERT INTO wargear_stats (
     gearDamage,
     gearAbilities
 )
-SELECT null, wargear.id, '(shooting)', '12', 'Assault 1', '5', -3, '1', '-'
+SELECT null, wargear.id, 'Rod of conenant (shooting)', '12', 'Assault 1', '5', -3, '1', '-'
 FROM wargear
 WHERE wargear.name = 'Rod of conenant';
 
@@ -322,7 +322,7 @@ INSERT INTO wargear_stats (
     gearDamage,
     gearAbilities
 )
-SELECT null, wargear.id, '(melee)', 'Melee', 'Melee', 'User', -3, '1', '-'
+SELECT null, wargear.id, 'Rod of covenant (melee)', 'Melee', 'Melee', 'User', -3, '1', '-'
 FROM wargear
 WHERE wargear.name = 'Rod of covenant';
 
@@ -337,7 +337,7 @@ INSERT INTO wargear_stats (
     gearDamage,
     gearAbilities
 )
-SELECT null, wargear.id, '(shooting)', '12', 'Assault 3', '5', -2, '1', '-'
+SELECT null, wargear.id, 'Staff of light (shooting)', '12', 'Assault 3', '5', -2, '1', '-'
 FROM wargear
 WHERE wargear.name = 'Staff of light';
 
@@ -352,7 +352,7 @@ INSERT INTO wargear_stats (
     gearDamage,
     gearAbilities
 )
-SELECT null, wargear.id, '(melee)', 'Melee', 'Melee', 'User', -2, '1', '-'
+SELECT null, wargear.id, 'Staff of light (melee)', 'Melee', 'Melee', 'User', -2, '1', '-'
 FROM wargear
 WHERE wargear.name = 'Staff of light';
 
@@ -367,7 +367,7 @@ INSERT INTO wargear_stats (
     gearDamage,
     gearAbilities
 )
-SELECT null, wargear.id, '(shooting)', '18', 'Assault 3', '6', -3, '2', '-'
+SELECT null, wargear.id, 'Staff of the Destroyer (shooting)', '18', 'Assault 3', '6', -3, '2', '-'
 FROM wargear
 WHERE wargear.name = 'Staff of the Destroyer';
 
@@ -382,7 +382,7 @@ INSERT INTO wargear_stats (
     gearDamage,
     gearAbilities
 )
-SELECT null, wargear.id, '(melee)', 'Melee', 'Melee', '+1', -3, '2', '-'
+SELECT null, wargear.id, 'Staff of the Destroyer (melee)', 'Melee', 'Melee', '+1', -3, '2', '-'
 FROM wargear
 WHERE wargear.name = 'Staff of the Destroyer';
 

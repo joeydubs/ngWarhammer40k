@@ -187,16 +187,52 @@ app.get('/getModelStats', async function (req, res) {
 	}
 })
 
-app.get('/getWoundTrack', async function (req, res) {
+app.get('/getModelWargear', async function (req, res) {
 	res.setHeader("Content-Type", "application/json");
 
 	let modelId = req.query.modelId;
 
 	try {
-		let woundTrack = await codex.getWoundTrack(modelId);
+		let modelWargear = await codex.getModelWargear(modelId);
 
 		res.status(200);
-		res.send(woundTrack);
+		res.send(modelWargear);
+	}
+	catch (error) {
+		console.log(error);
+		res.status(500);
+		res.send(error.message);
+	}
+})
+
+app.get('/getWargearStats', async function (req, res) {
+	res.setHeader("Content-Type", "application/json");
+
+	let wargearId = req.query.wargearId;
+
+	try {
+		let wargearStats = await codex.getWargearStats(wargearId);
+
+		res.status(200);
+		res.send(wargearStats);
+	}
+	catch (error) {
+		console.log(error);
+		res.status(500);
+		res.send(error.message);
+	}
+})
+
+app.get('/getWargearOptions', async function (req, res) {
+	res.setHeader("Content-Type", "application/json");
+
+	let modelId = req.query.modelId;
+
+	try {
+		let wargearOptions = await codex.getWargearOptions(modelId);
+
+		res.status(200);
+		res.send(wargearOptions);
 	}
 	catch (error) {
 		console.log(error);

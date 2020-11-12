@@ -543,19 +543,57 @@ class CodexController {
         return modelStats;
     }
 
-    async getWoundTrack(modelId) {
-        let query =
+    async getModelWargear(modelId) {
+        let query = 
             `
-            SELECT *
-            FROM wound_tracks AS wt
-            INNER JOIN models ON models.id = wt.modelId
-            WHERE models.id = ?
-            ORDER BY wt.tier
+            SELECT wargear.*, wt.name AS typeName
+            FROM model_gear_options mga
+            INNER JOIN wargear ON mga.wargearId = wargear.id
+            INNER JOIN wargear_types wt ON wargear.typeId = wt.id
+            WHERE wt.name NOT IN ('Group', 'Select')
+            AND mga.modelId = ?
+            UNION
+            SELECT target.*, targetTypes.name AS typeName
+            FROM model_gear_options mga
+            INNER JOIN wargear source ON mga.wargearId = source.id
+            INNER JOIN wargear_types wt ON source.typeId = wt.id
+            INNER JOIN wargear_join wj ON source.id = wj.wargearId
+            INNER JOIN wargear target ON wj.targetGearId = target.id
+            INNER JOIN wargear_types targetTypes ON target.typeId = targetTypes.id
+            WHERE wt.name IN ('Group', 'Select')
+            AND mga.modelId = ?
             `;
 
-        let woundTrack = await pool.query(query, [modelId]);
+        let modelWargear = await pool.query(query, [modelId, modelId]);
 
-        return woundTrack;
+        return modelWargear;
+    }
+
+    async getWargearStats(wargearId) {
+        let query = "SELECT * FROM wargear_stats WHERE wargearId = ?";
+        let wargearStats = await pool.query(query, [wargearId]);
+
+        return wargearStats;
+    }
+
+    async getWargearOptions(modelId) {
+        let query =
+            `
+            SELECT description
+            FROM model_gear_options AS mgo
+            WHERE mgo.modelId = ?
+            AND isOption = TRUE
+            `;
+
+        let results = await pool.query(query, [modelId]);
+
+        let wargearOptions = []
+        
+        for (let result of results) {
+            wargearOptions.push(result.description)
+        }
+
+        return wargearOptions;
     }
 
     async getKeywords(unitId) {

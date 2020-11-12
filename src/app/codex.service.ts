@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
-import { UnitStats, UnitWoundTrack } from './unit';
-import { Faction, Detachment, DetachmentSlot, Role, Unit, Subfaction, ModelStats, Model, WoundTrack, Keyword, FactionKeyword } from './codexInterface';
+import { Faction, Detachment, DetachmentSlot, Role, Unit, Subfaction, ModelStats, Model, Keyword, FactionKeyword, Wargear, WargearStats } from './codexInterface';
 
 @Injectable({
   providedIn: 'root'
@@ -121,13 +120,33 @@ export class CodexService {
       )
   }
 
-  getWoundTrack(modelId: number): Observable<WoundTrack[]> {
-    this.log(`fetching Wound Track`);
-    let options = { "params": {"modelId": String(modelId)} };
-    return this.http.get<WoundTrack[]>(`${this.apiUrl}/getWoundTrack`, options)
+  getModelWargear(modelId: number): Observable<Wargear[]> {
+    this.log("fetching Model Wargear");
+    let options = { "params": { "modelId": String(modelId) } };
+    return this.http.get<Wargear[]>(`${this.apiUrl}/getModelWargear`, options)
       .pipe(
-        tap(_ => this.log("fetched Wound Track")),
-        catchError(this.handleError<WoundTrack[]>('getWoundTrack', []))
+        tap(_ => this.log("fetched Model Wargear")),
+        catchError(this.handleError<Wargear[]>('getModelWargear', []))
+      )
+  }
+
+  getWargearStats(wargearId: number): Observable<WargearStats[]> {
+    this.log("fetching Wargear Stats");
+    let options = { "params": { "wargearId": String(wargearId) } };
+    return this.http.get<WargearStats[]>(`${this.apiUrl}/getWargearStats`, options)
+      .pipe(
+        tap(_ => this.log("fetched Wargear Stats")),
+        catchError(this.handleError<WargearStats[]>('getWargearStats'))
+      )
+  }
+
+  getWargearOptions(modelId: number): Observable<string[]> {
+    this.log(`fetching Wargear Options`);
+    let options = { "params": {"modelId": String(modelId)} };
+    return this.http.get<string[]>(`${this.apiUrl}/getWargearOptions`, options)
+      .pipe(
+        tap(_ => this.log("fetched Wargear Options")),
+        catchError(this.handleError<string[]>('getWargearOptions', []))
       )
   }
 
@@ -149,21 +168,5 @@ export class CodexService {
         tap(_ => this.log("fetched FactionKeywords")),
         catchError(this.handleError<FactionKeyword[]>('getFactionKeywords', []))
       )
-  }
-
-  getArmy() {
-    // request.open("POST", "/getArmy")
-    // request.send()
-  }
-
-  getStratagems() {
-    // request.open("POST", "/getStratagems")
-    // request.send()
-  }
-
-  getStratagemDetails(stratagemID, callback) {
-    // request.open("POST", "/getStratagemDetails")
-    // request.setRequestHeader("Content-Type", "application/json");
-    // request.send(JSON.stringify({ "stratagemID": parseInt(stratagemID) }))
   }
 }

@@ -13,7 +13,6 @@ source wargear_types_init.sql;
 source wargear_init.sql;
 source wargear_stats_init.sql;
 source stats_init.sql;
-source wound_tracks_init.sql;
 source keywords_init.sql;
 source faction_keywords_init.sql;
 source subfactions_init.sql;

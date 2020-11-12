@@ -15,7 +15,7 @@ WHERE wargear_types.name = "Weapon";
 
 INSERT INTO wargear
     (name, description, points, typeId)
-SELECT "Doomsday Cannon", NULL, 0, wargear_types.id
+SELECT "Doomsday Cannon", "When attacking with this weapon, choose one of the profiles below.", 0, wargear_types.id
 FROM wargear_types
 WHERE wargear_types.name = "Weapon";
 
@@ -69,7 +69,7 @@ WHERE wargear_types.name = "Weapon";
 
 INSERT INTO wargear
     (name, description, points, typeId)
-SELECT "Heat Ray", NULL, 0, wargear_types.id
+SELECT "Heat Ray", "When attacking with this weapon, choose one of the profiles below.", 0, wargear_types.id
 FROM wargear_types
 WHERE wargear_types.name = "Weapon";
 

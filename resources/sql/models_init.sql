@@ -1,7 +1,7 @@
 CREATE TABLE models (
     id INT AUTO_INCREMENT,
     name VARCHAR(50),
-    hasWoundTrack BOOLEAN,
+    hasOptions BOOLEAN,
     points INT,
     PRIMARY KEY (id)
 );
@@ -58,35 +58,35 @@ INSERT INTO models VALUES (
 INSERT INTO models VALUES (
     NULL,
     "Catacomb Command Barge",
-    FALSE,
+    TRUE,
     145
 );
 
 INSERT INTO models VALUES (
     NULL,
     "Overlord",
-    FALSE,
+    TRUE,
     85
 );
 
 INSERT INTO models VALUES (
     NULL,
     "Lord",
-    FALSE,
+    TRUE,
     70
 );
 
 INSERT INTO models VALUES (
     NULL,
     "Cryptek",
-    FALSE,
+    TRUE,
     85
 );
 
 INSERT INTO models VALUES (
     NULL,
     "Destroyer Lord",
-    FALSE,
+    TRUE,
     110
 );
 
@@ -100,14 +100,14 @@ INSERT INTO models VALUES (
 INSERT INTO models VALUES (
     NULL,
     "Immortal",
-    FALSE,
+    TRUE,
     18
 );
 
 INSERT INTO models VALUES (
     NULL,
     "Lychguard",
-    FALSE,
+    TRUE,
     30
 );
 
@@ -128,7 +128,7 @@ INSERT INTO models VALUES (
 INSERT INTO models VALUES (
     NULL,
     "Triarch Praetorian",
-    FALSE,
+    TRUE,
     23
 );
 
@@ -156,7 +156,7 @@ INSERT INTO models VALUES (
 INSERT INTO models VALUES (
     NULL,
     "Canoptek Wraith",
-    FALSE,
+    TRUE,
     45
 );
 
@@ -170,7 +170,7 @@ INSERT INTO models VALUES (
 INSERT INTO models VALUES (
     NULL,
     "Tomb Blades",
-    FALSE,
+    TRUE,
     17
 );
 
@@ -191,28 +191,28 @@ INSERT INTO models VALUES (
 INSERT INTO models VALUES (
     NULL,
     "Canoptek Spyders",
-    FALSE,
+    TRUE,
     65
 );
 
 INSERT INTO models VALUES (
     NULL,
     "Monolith",
-    TRUE,
+    FALSE,
     270
 );
 
 INSERT INTO models VALUES (
     NULL,
     "Annihilation Barge",
-    FALSE,
+    TRUE,
     115
 );
 
 INSERT INTO models VALUES (
     NULL,
     "Doomsday Ark",
-    TRUE,
+    FALSE,
     180
 );
 
@@ -226,34 +226,34 @@ INSERT INTO models VALUES (
 INSERT INTO models VALUES (
     NULL,
     "Ghost Ark",
-    TRUE,
+    FALSE,
     140
 );
 
 INSERT INTO models VALUES (
     NULL,
     "Doom Scythe",
-    TRUE,
+    FALSE,
     170
 );
 
 INSERT INTO models VALUES (
     NULL,
     "Night Scythe",
-    TRUE,
+    FALSE,
     135
 );
 
 INSERT INTO models VALUES (
     NULL,
     "Obelisk",
-    TRUE,
+    FALSE,
     390
 );
 
 INSERT INTO models VALUES (
     NULL,
     "Tesseract Vault",
-    TRUE,
+    FALSE,
     550
 );

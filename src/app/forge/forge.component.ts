@@ -77,8 +77,6 @@ export class ForgeComponent implements OnInit {
 
         this.units[index].keywords = keywords;
         this.units[index].factionKeywords = factionKeywords
-
-        console.log(this.units[index]);
       }
     )
   }

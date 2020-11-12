@@ -45,21 +45,21 @@ export interface Unit {
   id: number,
   name: string,
   description: string,
-  options: string,
   role: Role,
   power: number,
   faction: Faction,
   keywords: Keyword[],
-  factionKeywords: FactionKeyword[]
+  factionKeywords: FactionKeyword[],
 }
 
 export interface Model {
   id: number,
   name: string,
-  hasWoundTrack: boolean,
+  hasOptions: boolean,
   points: number,
   stats: ModelStats[],
-  woundTrack: WoundTrack[]
+  wargear: Wargear[],
+  wargearOptions: string[]
 }
 
 export interface ModelStats {
@@ -77,15 +77,30 @@ export interface ModelStats {
   save: string
 }
 
-export interface WoundTrack {
+export interface Ability {
   id: number,
-  modelId: number,
-  tier: number,
-  wounds: string,
-  char1name: string,
-  char1value: string,
-  char2name: string,
-  char2value: string,
-  char3name: string,
-  char3value: string
+  name: string,
+  ability: string
+}
+
+export interface Wargear {
+  id: number,
+  name: string,
+  description: string,
+  points: number,
+  typeId: number,
+  typeName: string,
+  stats: WargearStats[]
+}
+
+export interface WargearStats {
+  id: number,
+  wargearId: number,
+  gearProfile: string,
+  gearRange: string,
+  gearType: string,
+  gearStrength: string,
+  gearArmorPen: number,
+  gearDamage: string,
+  gearAbilities: string
 }

@@ -6,9 +6,10 @@
 <div class="card-body" *ngIf="unit">
   <h3>{{ unit.name }}</h3>
   <div *ngIf="models">
-    <table class="table table-striped shadow">
+    <table class="table shadow">
       <thead class="thead-dark">
         <tr>
+          <th>No.</th>
           <th>Name</th>
           <th>M</th>
           <th>WS</th>
@@ -22,22 +23,79 @@
         </tr>
       </thead>
       <tbody *ngFor="let model of models">
-        <tr *ngFor="let stats of model.stats">
-          <td>{{stats.profileName}}</td>
-          <td>{{stats.move}}</td>
-          <td>{{stats.weapon}}</td>
-          <td>{{stats.ballistic}}</td>
+        <tr *ngFor="let stats of model.stats; first as isFirst">
+          <td><span *ngIf="isFirst">{{ model.min }}<span *ngIf="model.min != model.max"> - {{ model.max }}</span></span>
+          </td>
+          <td>{{model.name}}<span *ngIf="model.name != stats.profileName"> ({{stats.profileName}})</span></td>
+          <td>{{stats.move}}"</td>
+          <td>{{stats.weapon}}+</td>
+          <td>{{stats.ballistic}}+</td>
           <td>{{stats.strength}}</td>
           <td>{{stats.toughness}}</td>
           <td>{{stats.wounds}}</td>
           <td>{{stats.attacks}}</td>
           <td>{{stats.leadership}}</td>
-          <td>{{stats.save}}</td>
+          <td>{{stats.save}}+</td>
         </tr>
       </tbody>
     </table>
     <p>{{unit.description}}</p>
-    <p><span class="font-weight-bold">Wargear Options:</span> {{unit.options}}</p>
+    <table class="table shadow">
+      <thead class="thead-dark">
+        <tr>
+          <th>Weapon</th>
+          <th>Range</th>
+          <th>Type</th>
+          <th>S</th>
+          <th>AP</th>
+          <th>D</th>
+          <th>Abilities</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let weapon of weapons">
+        <tr *ngIf="weapon.description">
+          <td>{{weapon.name}}</td>
+          <td colspan="6">{{weapon.description}}</td>
+        </tr>
+        <tr *ngFor="let stats of weapon.stats">
+          <td>
+            <span *ngIf="weapon.description"> - </span>
+            <span *ngIf="stats.gearProfile">{{stats.gearProfile}}</span>
+            <span *ngIf="!stats.gearProfile">{{weapon.name}}</span></td>
+          <td>{{stats.gearRange}}</td>
+          <td>{{stats.gearType}}</td>
+          <td>{{stats.gearStrength}}</td>
+          <td>{{stats.gearArmorPen}}</td>
+          <td>{{stats.gearDamage}}</td>
+          <td>{{stats.gearAbilities}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table shadow">
+      <thead class="thead-dark">
+        <tr>
+          <th>Other Wargear</th>
+          <th colspan="6">Abilities</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let wargear of otherWargear">
+        <tr *ngFor="let stats of wargear.stats">
+          <td>{{wargear.name}}</td>
+          <td colspan="6">{{stats.gearAbilities}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="unitHasOptions">
+      <p><span class="font-weight-bold">Wargear Options:</span></p>
+      <div *ngFor="let model of models">
+        <div *ngIf="model.hasOptions">
+          <p>{{ model.name }}</p>
+          <ul *ngIf="model.wargearOptions">
+            <li *ngFor="let option of model.wargearOptions">{{ option }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
     <p *ngIf="unit.factionKeywords"><span class="font-weight-bold">Faction Keywords:</span> {{factionKeywords}}</p>
     <p *ngIf="unit.keywords"><span class="font-weight-bold">Keywords:</span> {{keywords}}</p>
   </div>
