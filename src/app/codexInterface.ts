@@ -48,7 +48,6 @@ export interface Unit {
   role: Role,
   power: number,
   faction: Faction,
-  keywords: Keyword[],
   factionKeywords: FactionKeyword[],
   abilities: Ability[]
 }
@@ -58,9 +57,9 @@ export interface Model {
   name: string,
   hasOptions: boolean,
   points: number,
+  keywords: Keyword[],
   stats: ModelStats[],
   wargear: Wargear[],
-  wargearOptions: string[]
 }
 
 export interface ModelStats {

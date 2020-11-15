@@ -610,16 +610,16 @@ class CodexController {
         return abilities;
     }
 
-    async getKeywords(unitId) {
+    async getKeywords(modelId) {
         let query =
             `
             SELECT keywords.*
             FROM keywords
-            INNER JOIN unit_keywords_join ukj ON keywords.id = ukj.keywordId
-            WHERE unitId = ?
+            INNER JOIN model_keywords_join mkj ON keywords.id = mkj.keywordId
+            WHERE modelId = ?
             `;
 
-        let keywords = await pool.query(query, [unitId]);
+        let keywords = await pool.query(query, [modelId]);
 
         return keywords;
     }

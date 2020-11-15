@@ -262,10 +262,11 @@ app.get('/getUnitAbilities', async function (req, res) {
 app.get('/getKeywords', async function (req, res) {
 	res.setHeader("Content-Type", "application/json");
 
-	let unitId = req.query.unitId
+	let modelId = req.query.modelId
+	console.log(modelId);
 
 	try {
-		let keywords = await codex.getKeywords(unitId);
+		let keywords = await codex.getKeywords(modelId);
 
 		res.status(200);
 		res.send(keywords);

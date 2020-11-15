@@ -15,6 +15,7 @@ export class UnitCardComponent implements OnInit {
   @Input() models: Model[];
   weapons: Wargear[];
   otherWargear: Wargear[];
+  wargearOptions: string[];
   unitHasOptions: boolean;
 
   constructor(private codexService: CodexService) { }
@@ -28,6 +29,12 @@ export class UnitCardComponent implements OnInit {
       this.otherWargear = [];
 
       for (let model of this.models) {
+        this.codexService.getKeywords(model.id).subscribe(
+          (response) => {
+            model.keywords = response;
+          }
+        )
+
         this.codexService.getModelStats(model.id).subscribe(
           (response) => {
             model.stats = response;
@@ -64,10 +71,11 @@ export class UnitCardComponent implements OnInit {
 
         if (model.hasOptions) {
           this.unitHasOptions = true;
+          this.wargearOptions = []
 
           this.codexService.getWargearOptions(model.id).subscribe(
             (response) => {
-              model.wargearOptions = response;
+              this.wargearOptions.push(...response);
             }
           )
         }
@@ -75,6 +83,9 @@ export class UnitCardComponent implements OnInit {
     }
   }
 
-  get keywords() { return this.unit.keywords.map(keyword => keyword.name).join(', '); }
   get factionKeywords() { return this.unit.factionKeywords.map(factionKeyword => factionKeyword.name).join(', '); }
+
+  keywords(index: number) {
+    return this.models[index].keywords.map(keywords => keywords.name).join(', '); 
+  }
 }

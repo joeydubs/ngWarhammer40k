@@ -65,7 +65,6 @@ export class ForgeComponent implements OnInit {
       mergeMap((unit, index) => {
         return forkJoin([
           of(index),
-          this.codexService.getKeywords(unit.id),
           this.codexService.getFactionKeywords(unit.id),
           this.codexService.getUnitAbilities(unit.id)
         ])
@@ -73,11 +72,9 @@ export class ForgeComponent implements OnInit {
     ).subscribe(
       (response) => {
         let index = response[0] as number;
-        let keywords = response[1] as Keyword[]
-        let factionKeywords = response[2] as FactionKeyword[];
-        let unitAbilities = response[3] as Ability[];
+        let factionKeywords = response[1] as FactionKeyword[];
+        let unitAbilities = response[2] as Ability[];
 
-        this.units[index].keywords = keywords;
         this.units[index].factionKeywords = factionKeywords
         this.units[index].abilities = unitAbilities;
       }

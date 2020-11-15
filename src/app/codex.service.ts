@@ -160,9 +160,9 @@ export class CodexService {
       )
   }
 
-  getKeywords(unitId: number): Observable<Keyword[]> {
+  getKeywords(modelId: number): Observable<Keyword[]> {
     this.log("fetching Keywords");
-    let options = { "params": { "unitId": String(unitId) } }
+    let options = { "params": { "modelId": String(modelId) } }
     return this.http.get<Keyword[]>(`${this.apiUrl}/getKeywords`, options)
       .pipe(
         tap(_ => this.log("fetched Keywords")),

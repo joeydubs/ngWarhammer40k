@@ -28,6 +28,6 @@ source user_detachments_init.sql;
 
 source wargear_join.sql;
 source model_unit_join.sql;
-source unit_keywords_join.sql;
+source model_keywords_join.sql;
 source unit_faction_keywords_join.sql;
 source unit_abilities_join.sql;
