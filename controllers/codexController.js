@@ -546,54 +546,88 @@ class CodexController {
     async getModelWargear(modelId) {
         let query = 
             `
-            SELECT wargear.*, wt.name AS typeName
-            FROM model_gear_options mga
-            INNER JOIN wargear ON mga.wargearId = wargear.id
+            SELECT wargear.*, mgo.quantity, wt.name AS typeName
+            FROM model_gear_options mgo
+            INNER JOIN wargear ON mgo.wargearId = wargear.id
             INNER JOIN wargear_types wt ON wargear.typeId = wt.id
             WHERE wt.name NOT IN ('Group', 'Select')
-            AND mga.modelId = ?
+            AND mgo.modelId = ?
             UNION
-            SELECT target.*, targetTypes.name AS typeName
-            FROM model_gear_options mga
-            INNER JOIN wargear source ON mga.wargearId = source.id
+            SELECT target.*, wj.quantity, targetTypes.name AS typeName
+            FROM model_gear_options mgo
+            INNER JOIN wargear source ON mgo.wargearId = source.id
             INNER JOIN wargear_types wt ON source.typeId = wt.id
             INNER JOIN wargear_join wj ON source.id = wj.wargearId
             INNER JOIN wargear target ON wj.targetGearId = target.id
             INNER JOIN wargear_types targetTypes ON target.typeId = targetTypes.id
             WHERE wt.name IN ('Group', 'Select')
-            AND mga.modelId = ?
+            AND mgo.modelId = ?
             `;
 
         let modelWargear = await pool.query(query, [modelId, modelId]);
 
+        for (let wargear of modelWargear) {
+            let statsQuery = "SELECT * FROM wargear_stats WHERE wargearId = ?";
+            wargear.stats = await pool.query(statsQuery, [wargear.id]);
+        }
+
         return modelWargear;
-    }
-
-    async getWargearStats(wargearId) {
-        let query = "SELECT * FROM wargear_stats WHERE wargearId = ?";
-        let wargearStats = await pool.query(query, [wargearId]);
-
-        return wargearStats;
     }
 
     async getWargearOptions(modelId) {
         let query =
             `
-            SELECT description
+            SELECT mgo.id, mgo.wargearId, mgo.isRequired, mgo.description, mgo.unitLimit,
+            mgo.quantity, FALSE AS isDefault
             FROM model_gear_options AS mgo
+            INNER JOIN wargear ON mgo.wargearId = wargear.id
+            INNER JOIN wargear_types wt ON wargear.typeId = wt.id
             WHERE mgo.modelId = ?
+            AND wt.name <> 'Select'
+            AND isOption = TRUE
+            UNION
+            SELECT mgo.id, mgo.wargearId, mgo.isRequired, mgo.description, mgo.unitLimit,
+            wj.quantity, wj.isDefault
+            FROM model_gear_options mgo
+            INNER JOIN wargear source ON mgo.wargearId = source.id
+            INNER JOIN wargear_types wt ON source.typeId = wt.id
+            INNER JOIN wargear_join wj ON source.id = wj.wargearId
+            INNER JOIN wargear target ON wj.targetGearId = target.id
+            WHERE wt.name = 'Select'
+            AND mgo.modelId = ?
             AND isOption = TRUE
             `;
 
-        let results = await pool.query(query, [modelId]);
+        let results = await pool.query(query, [modelId, modelId]);
 
-        let wargearOptions = []
-        
+        let options = {};
+
         for (let result of results) {
-            wargearOptions.push(result.description)
+            if (options[result.id]) {
+                let wargearQuery = "SELECT * FROM wargear WHERE id = ?";
+                let statsQuery = "SELECT * FROM wargear_stats WHERE wargearId = ?";
+                let wargear = await pool.query(wargearQuery, [result.wargearId]);
+                wargear.stats = await pool.query(statsQuery, [result.wargearId]);
+                wargear.quantity = result.quantity;
+
+                options[result.id].wargear.push(wargear)
+            }
+            else {
+                options[result.id] = {
+                    id: result.id,
+                    isRequired: result.isRequired,
+                    description: result.description,
+                    unitLimit: result.unitLimit,
+                    wargear: []
+                }
+            }
+
+            if (result.isDefault) {
+                options[result.id].default = result.wargearId
+            }
         }
 
-        return wargearOptions;
+        return Object.values(options);
     }
 
     async getUnitAbilities(unitId) {
@@ -636,94 +670,6 @@ class CodexController {
         let factionKeywords = await pool.query(query, [unitId]);
 
         return factionKeywords;
-    }
-
-    getArmy(respond) {
-        let query =
-            `SELECT user_army.id, user_army.points, units.name AS unit, units.role, subfactions.name AS subfaction, models.name AS model, army_models.quantity, stats.move, stats.weapon, stats.ballistic, stats.strength, stats.toughness, stats.wounds, stats.attacks, stats.leadership, stats.save, wargear.name AS wargear, wargear_stats.profile AS wargearProfile, wargear_stats.range AS wargearRange, wargear_stats.type AS wargearType, wargear_stats.strength AS wargearStrength, wargear_stats.armorPen AS wargearArmorPen, wargear_stats.damage AS wargearDamage, wargear_stats.abilities AS wargearAbilities, abilities.name as abilityName, abilities.ability as abilityDescription
-            FROM user_army
-            LEFT OUTER JOIN army_models ON user_army.id = army_models.armyUnitID
-            LEFT OUTER JOIN army_gear ON army_gear.armyUnitID = user_army.id
-            AND army_gear.modelID = army_models.modelID
-            LEFT OUTER JOIN units ON user_army.unitID = units.id
-            LEFT OUTER JOIN models ON army_models.modelID = models.id
-            LEFT OUTER JOIN stats ON models.id = stats.modelID
-            LEFT OUTER JOIN wargear ON army_gear.gearID = wargear.id
-            LEFT OUTER JOIN wargear_stats ON wargear.id = wargear_stats.wargearID
-            LEFT OUTER JOIN unit_abilities_join ON unit_abilities_join.unitID =units.id
-            LEFT OUTER JOIN abilities ON unit_abilities_join.abilityID = abilities.id
-            LEFT OUTER JOIN army_faction_keywords ON user_army.id = army_faction_keywords.armyUnitID
-            LEFT OUTER JOIN subfactions ON army_faction_keywords.factionKeywordID = subfactions.id`
-
-        var message = {}
-
-        var callback = function (err, row) {
-            if (err) {
-                console.log(err.message)
-            }
-            else {
-                var id = row.id
-                if (!message[id]) {
-                    message[id] = {
-                        models: {},
-                        abilities: {}
-                    }
-                }
-
-                if (!message[id]["models"]) {
-                    message[id]["models"] = {}
-                }
-
-                let model = row.model
-                if (!message[id]["models"][model]) {
-                    message[id]["models"][model] = {
-                        gear: {}
-                    }
-                }
-
-                message[id]["name"] = row.unit
-                message[id]["subfaction"] = row.subfaction
-                message[id]["role"] = row.role
-                message[id]["points"] = row.points
-
-                message[id].abilities[row.abilityName] = row.abilityDescription
-
-                message[id]["models"][model]["quantity"] = row.quantity
-                message[id]["models"][model]["move"] = row.move
-                message[id]["models"][model]["weapon"] = row.weapon
-                message[id]["models"][model]["ballistic"] = row.ballistic
-                message[id]["models"][model]["strength"] = row.strength
-                message[id]["models"][model]["toughness"] = row.toughness
-                message[id]["models"][model]["wounds"] = row.wounds
-                message[id]["models"][model]["attacks"] = row.attacks
-                message[id]["models"][model]["leadership"] = row.leadership
-                message[id]["models"][model]["save"] = row.save
-
-
-                if (row.wargear != null) {
-                    if (!message[id]["models"][model]["gear"][row.wargear]) {
-                        message[id]["models"][model]["gear"][row.wargear] = {}
-                    }
-                    message[id]["models"][model]["gear"][row.wargear][row.wargearProfile] = {
-                        range: row.wargearRange,
-                        type: row.wargearType,
-                        strength: row.wargearStrength,
-                        armorPen: row.wargearArmorPen,
-                        damage: row.wargearDamage,
-                        abilities: row.wargearAbilities
-                    }
-                }
-            }
-        }
-
-        var completion = function (err, rows) {
-            if (err) {
-                console.log(err.message)
-            }
-            respond(err, message)
-        }
-
-        this.pool.each(query, callback, completion)
     }
 }
 

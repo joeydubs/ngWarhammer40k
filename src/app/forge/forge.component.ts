@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { forkJoin, from, of } from 'rxjs';
 import { mergeMap, switchMap } from 'rxjs/operators';
 import { CodexService } from '../codex.service';
-import { Faction, Subfaction, Detachment, Role, Unit, Model, Ability, Keyword, FactionKeyword } from '../codexInterface';
+import { Faction, Subfaction, Detachment, Role, Unit, Model, Ability, Keyword, FactionKeyword, ModelStats, Wargear, WargearOptions } from '../codexInterface';
 
 @Component({
   selector: 'app-forge',
@@ -22,6 +22,9 @@ export class ForgeComponent implements OnInit {
   slots: string[] = [];
   slotsFilled: {} = {};
   models: Model[];
+  weapons: Wargear[] = [];
+  otherWargear: Wargear[] = [];
+  hasOptions: boolean = false;
 
   selectedFaction: Faction;
   selectedDetachment: Detachment;
@@ -117,10 +120,56 @@ export class ForgeComponent implements OnInit {
 
   unitSelected() {
     this.models = undefined;
+    this.weapons = [];
+    this.otherWargear = [];
 
-    this.codexService.getModels(this.selectedUnit.id).subscribe(
+    this.codexService.getModels(this.selectedUnit.id).pipe(
+      switchMap(models => {
+        this.models = models;
+        return from(models);
+      }),
+      mergeMap((model, index) => {
+        let forkJoinArray: any = [
+          of(index),
+          this.codexService.getKeywords(model.id),
+          this.codexService.getModelStats(model.id),
+          this.codexService.getModelWargear(model.id),
+        ];
+
+        if (model.hasOptions) {
+          this.hasOptions = true;
+          forkJoinArray.push(this.codexService.getWargearOptions(model.id))
+        }
+
+        console.log(forkJoinArray);
+        
+        return forkJoin(forkJoinArray)
+      })
+    ).subscribe(
       (response) => {
-        this.models = response;
+        console.log(response);
+        let index = response[0] as number;
+        let keywords = response[1] as Keyword[];
+        let modelStats = response[2] as ModelStats[];
+        let modelWargear = response[3] as Wargear[];
+
+        this.models[index].keywords = keywords;
+        this.models[index].stats = modelStats;
+        this.models[index].wargear = modelWargear;
+
+        for (let wargear of modelWargear) {
+          if (wargear.typeName == "Weapon") {
+            this.weapons.push(wargear);
+          }
+          else {
+            this.otherWargear.push(wargear);
+          }
+        }
+
+        if (response.length == 5) {
+          let wargearOptions = response[4] as WargearOptions[];
+          this.models[index].options = wargearOptions;
+        }
       }
     )
   }

@@ -60,6 +60,7 @@ export interface Model {
   keywords: Keyword[],
   stats: ModelStats[],
   wargear: Wargear[],
+  options: WargearOptions[]
 }
 
 export interface ModelStats {
@@ -86,6 +87,7 @@ export interface Ability {
 export interface Wargear {
   id: number,
   name: string,
+  quantity: number,
   description: string,
   points: number,
   typeId: number,
@@ -103,4 +105,13 @@ export interface WargearStats {
   gearArmorPen: number,
   gearDamage: string,
   gearAbilities: string
+}
+
+export interface WargearOptions {
+  id: number,
+  isRequired: boolean,
+  description: string,
+  unitLimit: string,
+  wargear: Wargear[],
+  default: number
 }

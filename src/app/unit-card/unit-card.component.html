@@ -85,17 +85,18 @@
         </tr>
       </tbody>
     </table>
-    <table class="table table-sm shadow" *ngIf="unitHasOptions">
+    <table class="table table-sm shadow" *ngIf="hasOptions">
       <thead class="thead-dark">
         <tr>
-          <th>Wargear Options</th>
+          <th colspan="2">Wargear Options</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr *ngFor="let model of models">
+          <td *ngIf="models.length > 1">{{ model.name }}</td>
           <td>
             <ul>
-              <li *ngFor="let option of wargearOptions">{{ option }}</li>
+              <li *ngFor="let option of model.options">{{ option.description }}</li>
             </ul>
           </td>
         </tr>

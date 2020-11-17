@@ -130,16 +130,6 @@ export class CodexService {
       )
   }
 
-  getWargearStats(wargearId: number): Observable<WargearStats[]> {
-    this.log("fetching Wargear Stats");
-    let options = { "params": { "wargearId": String(wargearId) } };
-    return this.http.get<WargearStats[]>(`${this.apiUrl}/getWargearStats`, options)
-      .pipe(
-        tap(_ => this.log("fetched Wargear Stats")),
-        catchError(this.handleError<WargearStats[]>('getWargearStats'))
-      )
-  }
-
   getWargearOptions(modelId: number): Observable<string[]> {
     this.log(`fetching Wargear Options`);
     let options = { "params": {"modelId": String(modelId)} };

@@ -1,12 +1,14 @@
 CREATE TABLE model_gear_options
 (
+    id INT AUTO_INCREMENT,
     modelId INT,
     wargearId INT,
     quantity INT,
     isRequired BOOLEAN,
     isOption BOOLEAN,
     description VARCHAR(500),
-    unitLimit INT
+    unitLimit INT,
+    PRIMARY KEY (id)
 );
 
 INSERT INTO model_gear_options
