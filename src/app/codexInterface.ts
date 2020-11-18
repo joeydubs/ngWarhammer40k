@@ -55,6 +55,8 @@ export interface Unit {
 export interface Model {
   id: number,
   name: string,
+  min: number,
+  max: number,
   hasOptions: boolean,
   points: number,
   keywords: Keyword[],

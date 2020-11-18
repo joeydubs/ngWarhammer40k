@@ -263,7 +263,6 @@ app.get('/getKeywords', async function (req, res) {
 	res.setHeader("Content-Type", "application/json");
 
 	let modelId = req.query.modelId
-	console.log(modelId);
 
 	try {
 		let keywords = await codex.getKeywords(modelId);
@@ -298,8 +297,6 @@ app.get('/getFactionKeywords', async function (req, res) {
 
 app.post('/fetchUnitStats', function (req, res) {
 	var unit = req.body.unit
-
-	console.log(unit)
 
 	codex.getModelStats(unit, function (err, result) {
 		if (err) {

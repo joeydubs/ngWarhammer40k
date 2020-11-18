@@ -586,7 +586,7 @@ class CodexController {
             AND wt.name <> 'Select'
             AND isOption = TRUE
             UNION
-            SELECT mgo.id, mgo.wargearId, mgo.isRequired, mgo.description, mgo.unitLimit,
+            SELECT mgo.id, target.id AS wargearId, mgo.isRequired, mgo.description, mgo.unitLimit,
             wj.quantity, wj.isDefault
             FROM model_gear_options mgo
             INNER JOIN wargear source ON mgo.wargearId = source.id
@@ -603,16 +603,7 @@ class CodexController {
         let options = {};
 
         for (let result of results) {
-            if (options[result.id]) {
-                let wargearQuery = "SELECT * FROM wargear WHERE id = ?";
-                let statsQuery = "SELECT * FROM wargear_stats WHERE wargearId = ?";
-                let wargear = await pool.query(wargearQuery, [result.wargearId]);
-                wargear.stats = await pool.query(statsQuery, [result.wargearId]);
-                wargear.quantity = result.quantity;
-
-                options[result.id].wargear.push(wargear)
-            }
-            else {
+            if (!options[result.id]) {
                 options[result.id] = {
                     id: result.id,
                     isRequired: result.isRequired,
@@ -625,6 +616,18 @@ class CodexController {
             if (result.isDefault) {
                 options[result.id].default = result.wargearId
             }
+
+            let wargearQuery =
+                `SELECT wargear.*, wt.name AS typeName
+                FROM wargear
+                INNER JOIN wargear_types wt ON wargear.typeId = wt.id
+                WHERE wargear.id = ?`;
+            let statsQuery = "SELECT * FROM wargear_stats WHERE wargearId = ?";
+            let wargear = await pool.query(wargearQuery, [result.wargearId]);
+            wargear.stats = await pool.query(statsQuery, [result.wargearId]);
+            wargear.quantity = result.quantity;
+
+            options[result.id].wargear.push(...wargear)
         }
 
         return Object.values(options);

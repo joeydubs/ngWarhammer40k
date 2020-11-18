@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { forkJoin, from, of } from 'rxjs';
 import { mergeMap, switchMap } from 'rxjs/operators';
 import { CodexService } from '../codex.service';
@@ -32,6 +33,8 @@ export class ForgeComponent implements OnInit {
   selectedUnit: Unit;
   selectedSubfaction: Subfaction;
 
+  unitForm: FormGroup;
+
   constructor(private codexService: CodexService) { }
 
   ngOnInit(): void {
@@ -55,8 +58,10 @@ export class ForgeComponent implements OnInit {
   }
 
   get slotCount() { return Object.keys(this.detachment.slots).length; }
+  get selections() { return this.unitForm.get("selections") as FormArray }
 
   refreshUnits() {
+    this.unitForm = undefined;
     this.selectedUnit = undefined;
     this.units = [];
 
@@ -119,6 +124,8 @@ export class ForgeComponent implements OnInit {
   }
 
   unitSelected() {
+    this.unitForm = undefined;
+    this.hasOptions = false;
     this.models = undefined;
     this.weapons = [];
     this.otherWargear = [];
@@ -140,14 +147,11 @@ export class ForgeComponent implements OnInit {
           this.hasOptions = true;
           forkJoinArray.push(this.codexService.getWargearOptions(model.id))
         }
-
-        console.log(forkJoinArray);
-        
+                
         return forkJoin(forkJoinArray)
       })
     ).subscribe(
       (response) => {
-        console.log(response);
         let index = response[0] as number;
         let keywords = response[1] as Keyword[];
         let modelStats = response[2] as ModelStats[];
@@ -170,7 +174,36 @@ export class ForgeComponent implements OnInit {
           let wargearOptions = response[4] as WargearOptions[];
           this.models[index].options = wargearOptions;
         }
+
+        this.updateWargearForm()
       }
     )
+  }
+
+  updateWargearForm() {
+    let selections = new FormArray([]);
+
+    for (let model of this.models) {
+      let modelGroup = new FormGroup({
+        quantity: new FormControl(model.min, [Validators.min(model.min), Validators.max(model.max)]),
+      });
+
+      if (model.hasOptions) {
+        let options = new FormArray([]);
+
+        for (let option of model.options) {
+          let state = option.default ? option.default : '';
+          options.push(new FormControl(state, Validators.required))
+        }
+
+        modelGroup.addControl("options", options);
+      }
+
+      selections.push(modelGroup);
+    }
+
+    this.unitForm = new FormGroup({
+      selections: selections
+    });
   }
 }
