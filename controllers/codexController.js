@@ -624,10 +624,11 @@ class CodexController {
                 WHERE wargear.id = ?`;
             let statsQuery = "SELECT * FROM wargear_stats WHERE wargearId = ?";
             let wargear = await pool.query(wargearQuery, [result.wargearId]);
+            wargear = wargear.shift();
             wargear.stats = await pool.query(statsQuery, [result.wargearId]);
             wargear.quantity = result.quantity;
 
-            options[result.id].wargear.push(...wargear)
+            options[result.id].wargear.push(wargear)
         }
 
         return Object.values(options);

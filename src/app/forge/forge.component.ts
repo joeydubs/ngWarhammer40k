@@ -58,7 +58,8 @@ export class ForgeComponent implements OnInit {
   }
 
   get slotCount() { return Object.keys(this.detachment.slots).length; }
-  get selections() { return this.unitForm.get("selections") as FormArray }
+  get selections() { return this.unitForm.get("selections") as FormArray; }
+  options(i: number) { return this.selections.controls[i].get("options") as FormArray; }
 
   refreshUnits() {
     this.unitForm = undefined;
@@ -181,7 +182,14 @@ export class ForgeComponent implements OnInit {
   }
 
   updateWargearForm() {
-    let selections = new FormArray([]);
+    /**
+     * TODO:
+     *  - Create an object to store unit selections
+     *  - Generate unitForm based on object
+     *  - Allow Object/Form to be modified while filling it out 
+     */
+
+     let selections = new FormArray([]);
 
     for (let model of this.models) {
       let modelGroup = new FormGroup({
@@ -205,5 +213,13 @@ export class ForgeComponent implements OnInit {
     this.unitForm = new FormGroup({
       selections: selections
     });
+  }
+
+  split(modelName: string) {
+    // TODO
+  }
+
+  removeSplit(modelName: string, index: number) {
+    // TODO
   }
 }

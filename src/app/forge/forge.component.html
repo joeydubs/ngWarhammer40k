@@ -92,15 +92,34 @@
             </div>
             <hr *ngIf="selectedUnit != undefined" />
             <div *ngIf="unitForm">
+              <h4>Unit Selections</h4>
               <form [formGroup]="unitForm">
                 <div formArrayName="selections">
-                  <div *ngFor="let _ of selections.controls; let i=index">
-                    <div [formGroupName]="i">
-                      <label>
-                        <input type="number" formControlName="quantity" min="{{models[i].min}}" max="{{models[i].max}}"
-                          required>
-                        {{models[i].name}}
-                      </label>
+                  <div *ngFor="let _ of selections.controls; let si=index">
+                    <div [formGroupName]="si">
+                      <div class="form-group">
+                        <label>
+                          {{models[si].name}}
+                          <input type="number" class="form-control" formControlName="quantity" min="{{models[si].min}}"
+                            max="{{models[si].max}}" required>
+                        </label>
+                      </div>
+                      <div *ngIf="models[si].options" formArrayName="options">
+                        <div class="form-group" *ngFor="let _ of options(si).controls; let oi=index">
+                          <div class="form-check-inline" *ngIf="!models[si].options[oi].isRequired">
+                            <label class="form-check-label">
+                              <input type="radio" class="form-check-input" [formControlName]="oi" value="">
+                              None
+                            </label>
+                          </div>
+                          <div class="form-check-inline" *ngFor="let wargear of models[si].options[oi].wargear">
+                            <label class="form-check-label">
+                              <input type="radio" [formControlName]="oi" [value]="wargear.id">
+                              {{ wargear.name }}<span *ngIf="wargear.quantity > 1"> (x{{wargear.quantity}})</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
