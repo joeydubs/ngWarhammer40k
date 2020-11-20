@@ -58,8 +58,10 @@ export class ForgeComponent implements OnInit {
   }
 
   get slotCount() { return Object.keys(this.detachment.slots).length; }
-  get selections() { return this.unitForm.get("selections") as FormArray; }
-  options(i: number) { return this.selections.controls[i].get("options") as FormArray; }
+  selections(key: number) { return this.unitForm.get(String(key)) as FormArray; }
+  modelSelections(key: number, index: number) {
+    return this.selections(key).controls[index].get("modelSelections") as FormArray;
+  }
 
   refreshUnits() {
     this.unitForm = undefined;
@@ -93,7 +95,7 @@ export class ForgeComponent implements OnInit {
   factionSelected() {
     // TODO: Add confirmation if Detachment is already partially built.
     this.faction = this.selectedFaction;
-    
+
     this.refreshUnits();
 
     this.codexService.getSubfactionList(this.faction.id).subscribe(
@@ -148,7 +150,7 @@ export class ForgeComponent implements OnInit {
           this.hasOptions = true;
           forkJoinArray.push(this.codexService.getWargearOptions(model.id))
         }
-                
+
         return forkJoin(forkJoinArray)
       })
     ).subscribe(
@@ -176,50 +178,55 @@ export class ForgeComponent implements OnInit {
           this.models[index].options = wargearOptions;
         }
 
-        this.updateWargearForm()
+        this.generateWargearForm()
       }
     )
   }
 
-  updateWargearForm() {
-    /**
-     * TODO:
-     *  - Create an object to store unit selections
-     *  - Generate unitForm based on object
-     *  - Allow Object/Form to be modified while filling it out 
-     */
+  generateWargearForm() {
+    this.unitForm = new FormGroup({});
 
-     let selections = new FormArray([]);
+    for (let index in this.models) {
+      let model = this.models[index];
+      let selections = new FormArray([]);
 
-    for (let model of this.models) {
       let modelGroup = new FormGroup({
-        quantity: new FormControl(model.min, [Validators.min(model.min), Validators.max(model.max)]),
+        quantity: new FormControl(model.min, [Validators.min(0), Validators.max(model.max), Validators.required])
       });
 
       if (model.hasOptions) {
-        let options = new FormArray([]);
+        let modelSelections = new FormArray([]);
 
         for (let option of model.options) {
           let state = option.default ? option.default : '';
-          options.push(new FormControl(state, Validators.required))
+          modelSelections.push(new FormControl(state, Validators.required))
         }
 
-        modelGroup.addControl("options", options);
+        modelGroup.addControl("modelSelections", modelSelections);
       }
 
       selections.push(modelGroup);
+
+      this.unitForm.addControl(String(index), selections);
+    }
+  }
+
+  split(key: number) {
+    let model = this.models[key];
+    let modelGroup = new FormGroup({
+      quantity: new FormControl(model.min, [Validators.min(0), Validators.max(model.max), Validators.required]),
+      modelSelections: new FormArray([])
+    });
+
+    for (let option of model.options) {
+      let state = option.default ? option.default : '';
+      (modelGroup.get("modelSelections") as FormArray).push(new FormControl(state, Validators.required))
     }
 
-    this.unitForm = new FormGroup({
-      selections: selections
-    });
+    (this.unitForm.get(String(key)) as FormArray).push(modelGroup);
   }
 
-  split(modelName: string) {
-    // TODO
-  }
-
-  removeSplit(modelName: string, index: number) {
-    // TODO
+  removeSplit(key: number, index: number) {
+    (this.unitForm.get(String(key)) as FormArray).removeAt(index);
   }
 }
