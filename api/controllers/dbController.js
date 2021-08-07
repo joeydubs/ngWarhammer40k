@@ -3,7 +3,7 @@ const util = require('util');
 
 const pool = mysql.createPool({
   connectionLimit: 10,
-  host: "ArchPi",
+  socketPath: "/tmp/mysqld.sock",
   user: process.env.db_user,
   password: process.env.db_password,
   database: process.env.db_name

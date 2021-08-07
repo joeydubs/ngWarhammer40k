@@ -22,7 +22,7 @@
     "@angular/router": "~10.0.8",
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "bootstrap": "^4.5.0",
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.6.0",
     "mysql": "^2.18.1",
     "rxjs": "~6.6.2",
     "tslib": "^2.0.0",

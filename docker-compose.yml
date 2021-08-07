@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:
+        ng40k-app:
+                build: ./
+                ports:
+                        - 4000:80
+                deploy:
+                        restart_policy:
+                                condition: on-failure
+                                max_attempts: 3
+        ng40k-api:
+                build: ./api
+                ports:
+                        - 6000:6000
+                deploy:
+                        restart_policy:
+                                condition: on-failure
+                                max_attempts: 3
+                volumes:
+                        - /var/run/mysqld/mysqld.sock:/tmp/mysqld.sock

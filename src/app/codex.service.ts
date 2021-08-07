@@ -11,8 +11,8 @@ import { Faction, Detachment, DetachmentSlot, Role, Unit, Subfaction, ModelStats
 
 export class CodexService {
 
-  //private apiUrl = "https://ng40k.duckdns.org:5300";
-  private apiUrl = "http://localhost:5300";
+  private apiUrl = "https://ng40k.duckdns.org/api";
+  //private apiUrl = "http://localhost:5300";
 
   constructor(
     private http: HttpClient,
